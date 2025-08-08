@@ -1,6 +1,14 @@
 import { apiService } from "./service";
-import { Transaction, DashboardSummary } from "@/types/dashboard";
-import { mockTransactions, mockSummary } from "@/data/mockData";
+import {
+  Transaction,
+  DashboardSummary,
+  UserProfilesResponse,
+} from "@/types/dashboard";
+import {
+  mockTransactions,
+  mockSummary,
+  mockProfilesResponse,
+} from "@/data/mockData";
 
 // Just gonna simulate some minor API delay ;)
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -13,6 +21,12 @@ export const dashboardApi = {
     // return apiService.get<DashboardSummary>("/dashboard/summary");
 
     return mockSummary;
+  },
+
+  getProfiles: async (): Promise<UserProfilesResponse> => {
+    await delay(300);
+
+    return mockProfilesResponse;
   },
 
   getTransactions: async (params?: {

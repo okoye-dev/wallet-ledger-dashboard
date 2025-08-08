@@ -18,10 +18,24 @@ export interface DashboardSummary {
   transactionChange: number;
 }
 
+export interface Profile {
+  id: string;
+  name: string;
+  image: string;
+  email?: string;
+  role?: string;
+}
+
 export interface User {
   id: string;
   name: string;
   avatar: string;
+}
+
+export interface UserProfilesResponse {
+  profiles: Profile[];
+  additionalCount: number;
+  total: number;
 }
 
 export type SortDirection = "asc" | "desc";

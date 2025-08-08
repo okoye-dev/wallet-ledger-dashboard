@@ -6,6 +6,7 @@ import { Transaction } from "@/types/dashboard";
 export const dashboardKeys = {
   all: ["dashboard"] as const,
   summary: () => [...dashboardKeys.all, "summary"] as const,
+  profiles: () => [...dashboardKeys.all, "profiles"] as const,
   transactions: () => [...dashboardKeys.all, "transactions"] as const,
   transactionList: (params?: any) =>
     [...dashboardKeys.transactions(), "list", params] as const,
@@ -21,6 +22,15 @@ export const useDashboardSummary = () => {
     queryFn: dashboardApi.getSummary,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
+  });
+};
+
+export const useProfiles = () => {
+  return useQuery({
+    queryKey: dashboardKeys.profiles(),
+    queryFn: dashboardApi.getProfiles,
+    staleTime: 10 * 60 * 1000, // 10 minutes for profiles (less frequently changing)
+    gcTime: 15 * 60 * 1000,
   });
 };
 

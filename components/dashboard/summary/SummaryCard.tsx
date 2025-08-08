@@ -8,7 +8,6 @@ interface SummaryCardProps {
   title: string;
   value: string;
   change: number;
-  trend: "up" | "down";
   className?: string;
 }
 

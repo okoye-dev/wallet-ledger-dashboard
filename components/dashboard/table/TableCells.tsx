@@ -1,6 +1,5 @@
 import { TableCell } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { cn } from "@/lib/utils";
 import { formatDate, formatAmount } from "@/lib/utils/dashboardTable";
 import { TABLE_STYLES } from "@/components/dashboard/table/config";
 

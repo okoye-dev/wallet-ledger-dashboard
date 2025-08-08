@@ -1,9 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-interface Profile {
-  name: string;
-  image: string;
-}
+import { Profile } from "@/types/dashboard";
 
 interface UserProfilesProps {
   profiles: Profile[];

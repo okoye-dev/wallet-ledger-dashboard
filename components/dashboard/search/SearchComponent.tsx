@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, forwardRef, useImperativeHandle } from "react";
+import { useRef, forwardRef, useImperativeHandle, useCallback } from "react";
 import { SearchInput } from "./SearchInput";
 import { SearchResults } from "./SearchResults";
 import { useSearch } from "@/hooks/useSearch";
@@ -55,11 +55,10 @@ export const SearchComponent = forwardRef<
       collapseSearch,
     } = useHeaderSearch({ onTransactionSelect });
 
-    // Enhanced expand search that also closes sidebar
-    const enhancedExpandSearch = () => {
+    const enhancedExpandSearch = useCallback(() => {
       onCloseSidebar?.();
       expandSearch();
-    };
+    }, [onCloseSidebar, expandSearch]);
 
     // Expose methods to parent components
     useImperativeHandle(

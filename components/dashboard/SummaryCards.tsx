@@ -30,7 +30,6 @@ const SummaryCardsContent = ({ summary }: { summary: DashboardSummary }) => {
             title={card.title}
             value={card.value}
             change={card.change}
-            trend={card.trend}
           />
         ))}
       </div>

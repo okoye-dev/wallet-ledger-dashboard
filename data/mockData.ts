@@ -1,4 +1,9 @@
-import { Transaction, DashboardSummary } from "@/types/dashboard";
+import {
+  Transaction,
+  DashboardSummary,
+  Profile,
+  UserProfilesResponse,
+} from "@/types/dashboard";
 
 export const mockTransactions: Transaction[] = [
   {
@@ -107,6 +112,43 @@ export const mockUsers = [
   { name: "Noah Brown", avatar: "" },
   { name: "Emma Davis", avatar: "" },
 ];
+
+export const mockProfiles: Profile[] = [
+  {
+    id: "1",
+    name: "John Doe",
+    image: "/profile-1.png",
+    email: "john.doe@example.com",
+    role: "Admin",
+  },
+  {
+    id: "2",
+    name: "Jane Smith",
+    image: "/profile-2.png",
+    email: "jane.smith@example.com",
+    role: "User",
+  },
+  {
+    id: "3",
+    name: "Mike Johnson",
+    image: "/profile-3.png",
+    email: "mike.johnson@example.com",
+    role: "User",
+  },
+  {
+    id: "4",
+    name: "Sarah Wilson",
+    image: "/profile-4.png",
+    email: "sarah.wilson@example.com",
+    role: "User",
+  },
+];
+
+export const mockProfilesResponse: UserProfilesResponse = {
+  profiles: mockProfiles,
+  additionalCount: 12,
+  total: 16,
+};
 
 export const mockSummary: DashboardSummary = {
   totalBalance: 12345,

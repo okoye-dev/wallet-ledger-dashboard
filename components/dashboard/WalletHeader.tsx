@@ -5,6 +5,7 @@ import { DownArrow } from "@/components/icons";
 import TabNavigation from "@/components/ui/tab-navigation";
 import IconWrapper from "@/components/icons/IconWrapper";
 import UserProfiles from "@/components/ui/profile-container";
+import { useProfiles } from "@/hooks/api/useDashboard";
 
 interface WalletHeaderProps {
   activeTab: string;
@@ -17,13 +18,12 @@ const WalletHeader = ({ activeTab, onTabChange }: WalletHeaderProps) => {
     { id: "transactions", label: "Transactions" },
   ];
 
-  // Profile data using the available profile images
-  const profiles = [
-    { name: "John Doe", image: "/profile-1.png" },
-    { name: "Jane Smith", image: "/profile-2.png" },
-    { name: "Mike Johnson", image: "/profile-3.png" },
-    { name: "Sarah Wilson", image: "/profile-4.png" },
-  ];
+  // Similar to the transactions, profiles are fetched from the API I would think.
+  const {
+    data: profilesData,
+    isLoading: profilesLoading,
+    error: profilesError,
+  } = useProfiles();
 
   return (
     <div>
@@ -53,12 +53,32 @@ const WalletHeader = ({ activeTab, onTabChange }: WalletHeaderProps) => {
       </section>
 
       {/* User profiles */}
-      <UserProfiles
-        profiles={profiles}
-        additionalCount={12}
-        size="sm"
-        showNames={true}
-      />
+      {profilesLoading ? (
+        <div className="pb-6">
+          <div className="animate-pulse flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-8 h-8 bg-muted rounded-full border-2 border-surface"
+                />
+              ))}
+            </div>
+            <div className="h-4 bg-muted rounded w-32" />
+          </div>
+        </div>
+      ) : profilesError ? (
+        <div className="pb-6 text-sm text-muted-foreground">
+          Unable to load user profiles
+        </div>
+      ) : (
+        <UserProfiles
+          profiles={profilesData?.profiles || []}
+          additionalCount={profilesData?.additionalCount || 0}
+          size="sm"
+          showNames={true}
+        />
+      )}
 
       {/* Tab navigation */}
       <section className="relative w-full">
