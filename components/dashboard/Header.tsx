@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import ThemeToggle from "@/components/theme-toggle";
 
 interface HeaderProps {
   onMenuToggle?: () => void;
@@ -49,6 +50,8 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
           <Button variant="ghost" size="icon" className="hidden md:flex">
             <Grid3x3 className="h-5 w-5" />
           </Button>
+
+          <ThemeToggle />
 
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />

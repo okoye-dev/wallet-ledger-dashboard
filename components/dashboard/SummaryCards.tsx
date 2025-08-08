@@ -85,7 +85,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
   return (
     <div className="px-6 py-6 bg-background">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-foreground">Summary</h2>
+        <h2 className="text-lg font-semibold text-text-summary">Summary</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -94,7 +94,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalBalance)}
           change={summary.balanceChange}
           trend={summary.balanceChange >= 0 ? "up" : "down"}
-          className="bg-gradient-to-br from-primary-subtle to-primary-subtle/50"
+          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -102,7 +102,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalCredits)}
           change={summary.creditsChange}
           trend={summary.creditsChange >= 0 ? "up" : "down"}
-          className="bg-gradient-to-br from-success-subtle to-success-subtle/50"
+          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -110,7 +110,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalDebits)}
           change={summary.debitsChange}
           trend={summary.debitsChange >= 0 ? "down" : "up"}
-          className="bg-gradient-to-br from-danger-subtle to-danger-subtle/50"
+          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -118,7 +118,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatNumber(summary.transactionCount)}
           change={summary.transactionChange}
           trend={summary.transactionChange >= 0 ? "up" : "down"}
-          className="bg-gradient-to-br from-warning-subtle to-warning-subtle/50"
+          className="bg-summary-card-bg"
         />
       </div>
     </div>

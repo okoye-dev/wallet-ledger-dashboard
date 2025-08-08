@@ -33,7 +33,7 @@ interface SidebarProps {
 
 const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
   return (
-    <section className="absolute p-10 left-0 top-0">
+    <>
       {/* Mobile backdrop - only shows on small screens when sidebar is open */}
       {isOpen && (
         <div
@@ -49,7 +49,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
       <aside
         className={cn(
           // Base styles
-          "absolute top-0 left-0 z-50 h-full w-64 bg-surface border-r border-card-border shadow-lg",
+          "fixed top-0 left-0 z-50 h-full w-64 bg-surface border-r border-card-border shadow-lg",
           // Mobile: slide in/out animation
           "transform transition-transform duration-300 ease-in-out",
           // Desktop: always visible, static positioning
@@ -84,8 +84,9 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
                     variant={item.active ? "secondary" : "ghost"}
                     className={cn(
                       "w-full justify-start gap-3 h-10 transition-colors",
-                      item.active &&
-                        "bg-primary/10 text-primary hover:bg-primary/15"
+                      item.active
+                        ? "bg-button-green/15 text-button-green hover:bg-button-green/20"
+                        : "text-text-green hover:bg-hover-text-green/10 hover:text-hover-text-green"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -105,7 +106,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
           </div>
         </div>
       </aside>
-    </section>
+    </>
   );
 };
 
