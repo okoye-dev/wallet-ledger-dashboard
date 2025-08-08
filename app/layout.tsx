@@ -11,8 +11,36 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Wallet Ledger",
-  description: "Developed by The17thSTudio Wallet Ledger",
+  title: "FinTrack - Personal Wallet Ledger",
+  description:
+    "Track your wallet, manage budgets, and achieve your financial goals with FinTrack. Personal finance management made simple.",
+  openGraph: {
+    title: "FinTrack - Personal Wallet Ledger",
+    description:
+      "Track your wallet, manage budgets, and achieve your financial goals with FinTrack. Personal finance management made simple.",
+    type: "website",
+    url: "https://wallet-ledger-ten.vercel.app",
+    siteName: "FinTrack Wallet",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "FinTrack - Personal Wallet Ledger",
+      },
+    ],
+  },
+  keywords: [
+    "personal finance",
+    "expense tracking",
+    "budget management",
+    "financial planning",
+    "money management",
+    "FinTrack",
+  ],
+  authors: [{ name: "The17thStudio" }],
+  creator: "The17thStudio",
+  publisher: "The17thStudio",
 };
 
 export default function RootLayout({
