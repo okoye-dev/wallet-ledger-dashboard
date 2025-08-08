@@ -42,10 +42,7 @@ const Header = ({
       <header className="h-header bg-background flex sticky top-0 z-50 justify-center items-center px-4 md:px-6 lg:pl-2">
         {/* Left section - Logo and Menu */}
         <section className="absolute left-4 flex items-center gap-1.5 xs:gap-2 md:gap-4">
-          <MenuBars
-            onClick={onMenuToggle}
-            className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5"
-          />
+          <MenuBars onClick={onMenuToggle} />
           <Link href="/" className="scale-[0.65] xs:scale-75 md:scale-100">
             <FinTrack />
           </Link>
