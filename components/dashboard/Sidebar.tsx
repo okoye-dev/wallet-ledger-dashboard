@@ -39,7 +39,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
       <aside
         className={cn(
           // Base styles - positioned below header
-          "fixed lg:top-4 top-header z-[99] left-0 h-[calc(100vh-var(--header-height))] w-64 bg-surface transition-all",
+          "fixed lg:top-4 top-header z-[99] left-0 h-[calc(100vh-var(--header-height))] w-64 bg-gradient-to-t from-surface to-background transition-all",
           // Mobile: slide in/out animation
           "transform duration-300 ease-in-out",
           // Desktop: always visible, static positioning
@@ -48,7 +48,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <nav className="flex-1 px-4 py-6">
+        <nav className="flex-1 px-4 py-6 lg:py-8">
           <div className="space-y-2">
             {sidebarItems.map((item) => {
               return (

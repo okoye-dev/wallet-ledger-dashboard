@@ -18,7 +18,7 @@ const ThemeToggle = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="relative opacity-50"
+        className="relative opacity-50 h-10 w-10"
         aria-label="Toggle theme"
         disabled
       >
@@ -32,11 +32,11 @@ const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="relative"
+      className="relative h-10 w-10 hover:bg-hover-text-green/10"
       aria-label="Toggle theme"
     >
-      <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="h-6 w-6 rotate-0 scale-125 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-125" />
     </Button>
   );
 };

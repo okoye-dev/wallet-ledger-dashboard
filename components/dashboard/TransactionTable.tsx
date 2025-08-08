@@ -66,8 +66,7 @@ const TransactionTableContent = ({
                 key={transaction.id}
                 className={cn(
                   "hover:bg-surface-muted/50 transition-colors border-b-0",
-                  isSelected &&
-                    "bg-yellow-50 dark:bg-yellow-900/20 ring-2 ring-yellow-300 dark:ring-yellow-600"
+                  isSelected && "bg-yellow-50 dark:bg-yellow-900/20"
                 )}
               >
                 <DateCell

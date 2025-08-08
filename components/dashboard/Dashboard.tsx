@@ -52,6 +52,11 @@ const Dashboard = () => {
     handleTransactionSelectWithNavigation(transaction, handleTransactionSelect);
   };
 
+  // Navigate to transactions table
+  const navigateToTransactions = () => {
+    setActiveTab("transactions");
+  };
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "transactions":
@@ -81,13 +86,15 @@ const Dashboard = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen flex bg-background">
+      <div className="min-h-screen lg:px-4 flex bg-background">
         <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
         <section className="w-full">
           <Header
             onMenuToggle={toggleSidebar}
             onTransactionSelect={onTransactionSelect}
+            onCloseSidebar={closeSidebar}
+            onNavigateToTransactions={navigateToTransactions}
           />
 
           <main

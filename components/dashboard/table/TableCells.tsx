@@ -36,7 +36,7 @@ interface DateCellProps {
 
 export const DateCell = ({ date, isLastRow }: DateCellProps) => (
   <BaseCell
-    className={`font-mono text-foreground ${TABLE_STYLES.textSizes.cell}`}
+    className={`font-mono ${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
     padding="pl-[18px] pr-[9px]"
     isLastRow={isLastRow}
   >
@@ -51,7 +51,7 @@ interface RemarkCellProps {
 
 export const RemarkCell = ({ remark, isLastRow }: RemarkCellProps) => (
   <BaseCell
-    className={`font-medium text-foreground ${TABLE_STYLES.textSizes.cell}`}
+    className={`font-medium ${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
     padding="px-[9px]"
     isLastRow={isLastRow}
   >
@@ -67,10 +67,7 @@ interface AmountCellProps {
 
 export const AmountCell = ({ amount, type, isLastRow }: AmountCellProps) => (
   <BaseCell
-    className={cn(
-      `text-left font-semibold ${TABLE_STYLES.textSizes.cell}`,
-      type === "Credit" ? "text-success" : "text-danger"
-    )}
+    className={`text-left font-semibold ${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
     padding="px-[9px]"
     isLastRow={isLastRow}
   >
@@ -86,7 +83,7 @@ interface CurrencyCellProps {
 
 export const CurrencyCell = ({ currency, isLastRow }: CurrencyCellProps) => (
   <BaseCell
-    className={`text-left text-foreground ${TABLE_STYLES.textSizes.cell}`}
+    className={`text-left ${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
     padding="px-[9px]"
     isLastRow={isLastRow}
   >

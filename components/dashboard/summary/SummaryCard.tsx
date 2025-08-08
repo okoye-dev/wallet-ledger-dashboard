@@ -47,10 +47,7 @@ export const SummaryCard = ({
             {value}
           </strong>
           <span
-            className={cn(
-              `${SUMMARY_STYLES.changeSize} font-medium`,
-              isPositive ? "text-success" : "text-danger"
-            )}
+            className={`${SUMMARY_STYLES.changeSize} font-medium text-[#3E7383]`}
           >
             {isPositive ? "+" : ""}
             {change}%

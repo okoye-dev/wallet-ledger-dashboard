@@ -131,7 +131,7 @@ const TabNavigation = ({
   const tabWidth = calculateTabWidth();
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       <div ref={containerRef} className="flex" style={{ width: "100%" }}>
         {tabs.map((tab) => (
           <h2

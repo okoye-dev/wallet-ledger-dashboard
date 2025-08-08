@@ -3,9 +3,11 @@
 import { Transaction } from "@/types/dashboard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { CalendarDays, CreditCard, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StatusBadge } from "@/components/ui/status-badge";
+import { formatDate, formatAmount } from "@/lib/utils/dashboardTable";
+import { highlightMatch } from "@/lib/utils/textUtils";
 
 interface SearchResultsProps {
   query: string;
@@ -13,6 +15,7 @@ interface SearchResultsProps {
   isLoading?: boolean;
   onTransactionClick?: (transaction: Transaction) => void;
   onClose?: () => void;
+  onNavigateToTransactions?: () => void;
   className?: string;
 }
 
@@ -22,6 +25,7 @@ export const SearchResults = ({
   isLoading = false,
   onTransactionClick,
   onClose,
+  onNavigateToTransactions,
   className,
 }: SearchResultsProps) => {
   if (!query.trim()) {
@@ -63,7 +67,9 @@ export const SearchResults = ({
         <CardContent className="p-4">
           <div className="text-center text-muted-foreground">
             <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
-            <p className="text-sm">No transactions found for &quot;{query}&quot;</p>
+            <p className="text-sm">
+              No transactions found for &quot;{query}&quot;
+            </p>
             <p className="text-xs mt-1">Try searching for a different term</p>
           </div>
         </CardContent>
@@ -74,13 +80,13 @@ export const SearchResults = ({
   return (
     <Card
       className={cn(
-        "absolute top-full mt-2 w-full z-50 max-h-96 overflow-y-auto",
+        "absolute top-full mt-2 w-full z-50 max-h-[80vh] overflow-y-auto shadow-xl border-border/50",
         className
       )}
     >
-      <CardContent className="p-2">
-        <div className="mb-2 px-2 py-1">
-          <p className="text-xs text-muted-foreground">
+      <CardContent>
+        <div className="mb-3 px-1">
+          <p className="text-sm text-muted-foreground font-medium">
             Found {transactions.length} transaction
             {transactions.length !== 1 ? "s" : ""}
           </p>
@@ -92,13 +98,13 @@ export const SearchResults = ({
               key={transaction.id}
               variant="ghost"
               onClick={() => onTransactionClick?.(transaction)}
-              className="w-full justify-start h-auto p-3 hover:bg-muted/50"
+              className="w-full justify-start h-auto p-3 hover:bg-foreground/5 cursor-pointer transition-colors duration-150 rounded-lg"
             >
-              <div className="flex items-center space-x-3 w-full">
+              <div className="flex items-center space-x-2.5 w-full">
                 {/* Transaction Type Icon */}
                 <div
                   className={cn(
-                    "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
+                    "flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center",
                     transaction.type === "Credit"
                       ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400"
                       : "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400"
@@ -108,47 +114,33 @@ export const SearchResults = ({
                 </div>
 
                 {/* Transaction Details */}
-                <div className="flex-1 text-left">
+                <section className="flex-1 text-left">
+                  {/* Top Row: Remark and Amount */}
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-sm">
+                    <p className="font-medium text-sm text-foreground">
                       {highlightMatch(transaction.remark, query)}
                     </p>
-                    <div className="flex items-center space-x-2">
-                      <span
-                        className={cn(
-                          "font-semibold text-sm",
-                          transaction.type === "Credit"
-                            ? "text-green-600"
-                            : "text-red-600"
-                        )}
-                      >
-                        {transaction.type === "Debit" ? "-" : "+"}$
-                        {transaction.amount}
-                      </span>
-                      <Badge
-                        variant={
-                          transaction.type === "Credit"
-                            ? "default"
-                            : "secondary"
-                        }
-                        className="text-xs"
-                      >
-                        {transaction.type}
-                      </Badge>
-                    </div>
+                    <span className="font-semibold text-sm text-foreground">
+                      {transaction.type === "Debit" ? "-" : ""}
+                      {formatAmount(transaction.amount)}
+                    </span>
                   </div>
 
-                  <div className="flex items-center space-x-2 mt-1">
-                    <CalendarDays className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(transaction.date).toLocaleDateString()}
-                    </span>
-                    <span className="text-xs text-muted-foreground">•</span>
-                    <span className="text-xs text-muted-foreground">
-                      {transaction.currency}
-                    </span>
+                  {/* Bottom Row: Date, Currency, and Status */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CalendarDays className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-xs text-muted-foreground font-mono">
+                        {formatDate(transaction.date)}
+                      </span>
+                      <span className="text-xs text-muted-foreground">•</span>
+                      <span className="text-xs text-muted-foreground">
+                        {transaction.currency}
+                      </span>
+                    </div>
+                    <StatusBadge status={transaction.type} size="sm" />
                   </div>
-                </div>
+                </section>
               </div>
             </Button>
           ))}
@@ -156,12 +148,15 @@ export const SearchResults = ({
 
         {/* View All Results */}
         {transactions.length > 5 && (
-          <div className="border-t mt-2 pt-2">
+          <div className="border-t mt-3 pt-3">
             <Button
               variant="outline"
               size="sm"
               className="w-full"
-              onClick={onClose}
+              onClick={() => {
+                onNavigateToTransactions?.();
+                onClose?.();
+              }}
             >
               View All Results
             </Button>
@@ -169,33 +164,5 @@ export const SearchResults = ({
         )}
       </CardContent>
     </Card>
-  );
-};
-
-// Helper function to highlight matching text
-const highlightMatch = (text: string, query: string) => {
-  if (!query.trim()) return text;
-
-  const regex = new RegExp(
-    `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-    "gi"
-  );
-  const parts = text.split(regex);
-
-  return (
-    <span>
-      {parts.map((part, index) =>
-        regex.test(part) ? (
-          <mark
-            key={index}
-            className="bg-yellow-200 dark:bg-yellow-800 text-foreground"
-          >
-            {part}
-          </mark>
-        ) : (
-          part
-        )
-      )}
-    </span>
   );
 };

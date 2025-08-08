@@ -52,18 +52,18 @@ export const SearchInput = ({
     <div
       className={cn(
         "relative flex items-center transition-all duration-200 ease-in-out",
-        isExpanded ? "w-64 md:w-80" : "w-8 md:w-10",
+        isExpanded ? "w-full" : "w-8 md:w-10",
         className
       )}
     >
       {/* Search Icon */}
       <div
         className={cn(
-          "absolute left-2 z-10 transition-all duration-200",
+          "absolute left-3 z-10 transition-all duration-200",
           isExpanded ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
       >
-        <Search className="h-4 w-4 text-muted-foreground" />
+        <Search className="h-5 w-5 text-muted-foreground" />
       </div>
 
       {/* Input Field */}
@@ -77,11 +77,11 @@ export const SearchInput = ({
         placeholder={placeholder}
         className={cn(
           "w-full transition-all duration-200 ease-in-out",
-          "bg-background border border-border rounded-md",
-          "text-sm text-foreground placeholder:text-muted-foreground",
+          "bg-background border border-border rounded-lg shadow-lg",
+          "text-base text-foreground placeholder:text-muted-foreground",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
           isExpanded
-            ? "h-8 pl-8 pr-8 opacity-100 pointer-events-auto"
+            ? "h-12 pl-12 pr-12 opacity-100 pointer-events-auto"
             : "h-0 p-0 opacity-0 pointer-events-none border-transparent"
         )}
       />
@@ -92,9 +92,9 @@ export const SearchInput = ({
           variant="ghost"
           size="sm"
           onClick={handleClear}
-          className="absolute right-1 h-6 w-6 p-0 hover:bg-muted"
+          className="absolute right-2 h-8 w-8 p-0 hover:bg-muted rounded-md"
         >
-          <X className="h-3 w-3" />
+          <X className="h-4 w-4" />
         </Button>
       )}
     </div>

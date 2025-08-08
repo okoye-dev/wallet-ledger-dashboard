@@ -61,11 +61,16 @@ const WalletHeader = ({ activeTab, onTabChange }: WalletHeaderProps) => {
       />
 
       {/* Tab navigation */}
-      <TabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={onTabChange}
-      />
+      <section className="relative w-full">
+        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-border w-full"></span>
+        <div className="max-w-md lg:max-w-sm w-full">
+          <TabNavigation
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabChange={onTabChange}
+          />
+        </div>
+      </section>
     </div>
   );
 };

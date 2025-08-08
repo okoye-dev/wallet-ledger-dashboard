@@ -1,7 +1,8 @@
 import { SortField } from "@/types/dashboard";
 
 export const TABLE_STYLES = {
-  headerColor: "text-[#15272d]/[0.62]",
+  headerColor: "text-[#15272d]/[0.62] dark:text-foreground",
+  cellColor: "text-foreground",
   borderColor: "bg-[#49656e]/20",
   cellPadding: {
     first: "pl-[18px] pr-[9px]",
@@ -51,11 +52,12 @@ export const TABLE_HEADERS: TableHeaderConfig[] = [
     sortable: true,
   },
   {
+    field: "currency",
     label: "Currency",
     width: "min-w-fit",
     padding: TABLE_STYLES.cellPadding.middle,
     textAlign: "text-left",
-    sortable: false,
+    sortable: true,
   },
   {
     field: "type",

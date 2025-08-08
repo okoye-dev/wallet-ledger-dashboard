@@ -25,4 +25,4 @@ export interface User {
 }
 
 export type SortDirection = "asc" | "desc";
-export type SortField = "date" | "remark" | "amount" | "type";
+export type SortField = "date" | "remark" | "amount" | "currency" | "type";
