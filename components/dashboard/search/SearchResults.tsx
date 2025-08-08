@@ -86,7 +86,7 @@ export const SearchResults = ({
     >
       <CardContent>
         <div className="mb-3 px-1">
-          <p className="text-sm text-muted-foreground font-medium">
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium">
             Found {transactions.length} transaction
             {transactions.length !== 1 ? "s" : ""}
           </p>
@@ -98,29 +98,29 @@ export const SearchResults = ({
               key={transaction.id}
               variant="ghost"
               onClick={() => onTransactionClick?.(transaction)}
-              className="w-full justify-start h-auto p-3 hover:bg-foreground/5 cursor-pointer transition-colors duration-150 rounded-lg"
+              className="w-full justify-start h-auto p-2 sm:p-3 hover:bg-foreground/5 cursor-pointer transition-colors duration-150 rounded-lg"
             >
-              <div className="flex items-center space-x-2.5 w-full">
+              <div className="flex items-center space-x-2 sm:space-x-2.5 w-full">
                 {/* Transaction Type Icon */}
                 <div
                   className={cn(
-                    "flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center",
+                    "flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center",
                     transaction.type === "Credit"
                       ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400"
                       : "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400"
                   )}
                 >
-                  <CreditCard className="h-4 w-4" />
+                  <CreditCard className="h-3 w-3 sm:h-4 sm:w-4" />
                 </div>
 
                 {/* Transaction Details */}
                 <section className="flex-1 text-left">
                   {/* Top Row: Remark and Amount */}
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-sm text-foreground">
+                    <p className="font-medium text-xs sm:text-sm text-foreground">
                       {highlightMatch(transaction.remark, query)}
                     </p>
-                    <span className="font-semibold text-sm text-foreground">
+                    <span className="font-semibold text-xs sm:text-sm text-foreground">
                       {transaction.type === "Debit" ? "-" : ""}
                       {formatAmount(transaction.amount)}
                     </span>
@@ -128,13 +128,15 @@ export const SearchResults = ({
 
                   {/* Bottom Row: Date, Currency, and Status */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <CalendarDays className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
+                    <div className="flex items-center space-x-1 sm:space-x-2">
+                      <CalendarDays className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
+                      <span className="text-[10px] sm:text-xs text-muted-foreground">
                         {formatDate(transaction.date)}
                       </span>
-                      <span className="text-xs text-muted-foreground">•</span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-[10px] sm:text-xs text-muted-foreground">
+                        •
+                      </span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground">
                         {transaction.currency}
                       </span>
                     </div>
