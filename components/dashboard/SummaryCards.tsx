@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,35 +15,33 @@ const SummaryCard = ({
   title,
   value,
   change,
-  trend,
   className,
 }: SummaryCardProps) => {
   const isPositive = change > 0;
-  const TrendIcon = trend === "up" ? TrendingUp : TrendingDown;
 
   return (
-    <Card className={cn("border-card-border", className)}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <p className="text-sm font-medium text-muted-foreground">{title}</p>
+    <Card className={cn(className, "rounded-[20px] bg-summary-card-bg")}>
+      <CardHeader className="flex flex-row justify-between px-0">
+        <p className="text-[17px] font-medium text-muted-foreground">{title}</p>
         <Button variant="ghost" size="icon" className="h-6 w-6">
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </CardHeader>
 
       <CardContent>
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-2xl font-bold text-foreground">{value}</div>
-            <span
-              className={cn(
-                "text-xs font-medium",
-                isPositive ? "text-success" : "text-danger"
-              )}
-            >
-              {isPositive ? "+" : ""}
-              {change}%
-            </span>
-          </div>
+        <div className="flex-col flex gap-1 justify-between">
+          <strong className="text-4xl lg:text-[34px] font-bold text-foreground">
+            {value}
+          </strong>
+          <span
+            className={cn(
+              "text-sm lg:text-[13px] font-medium",
+              isPositive ? "text-success" : "text-danger"
+            )}
+          >
+            {isPositive ? "+" : ""}
+            {change}%
+          </span>
         </div>
       </CardContent>
     </Card>
@@ -78,7 +76,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
   return (
     <div className="px-6 py-6 bg-background">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-text-summary">Summary</h2>
+        <h2 className="text-[20px] font-bold">Summary</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -87,7 +85,6 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalBalance)}
           change={summary.balanceChange}
           trend={summary.balanceChange >= 0 ? "up" : "down"}
-          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -95,7 +92,6 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalCredits)}
           change={summary.creditsChange}
           trend={summary.creditsChange >= 0 ? "up" : "down"}
-          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -103,7 +99,6 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatCurrency(summary.totalDebits)}
           change={summary.debitsChange}
           trend={summary.debitsChange >= 0 ? "down" : "up"}
-          className="bg-summary-card-bg"
         />
 
         <SummaryCard
@@ -111,7 +106,6 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
           value={formatNumber(summary.transactionCount)}
           change={summary.transactionChange}
           trend={summary.transactionChange >= 0 ? "up" : "down"}
-          className="bg-summary-card-bg"
         />
       </div>
     </div>

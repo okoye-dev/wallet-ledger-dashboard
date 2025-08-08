@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ChevronUp, ChevronDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -78,12 +78,18 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
     return formatter.format(Math.abs(amount));
   };
 
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return null;
-    return sortDirection === "asc" ? (
-      <ChevronUp className="h-4 w-4" />
-    ) : (
-      <ChevronDown className="h-4 w-4" />
+  const SortArrow = ({ field }: { field: SortField }) => {
+    const isActive = sortField === field;
+    const isAscending = isActive && sortDirection === "asc";
+
+    return (
+      <div
+        className={`transition-transform duration-200 ${
+          isAscending ? "rotate-180" : ""
+        }`}
+      >
+        <DownArrow size="sm" />
+      </div>
     );
   };
 
@@ -100,10 +106,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
                   <span>Date</span>
-                  <div className="flex items-center gap-1">
-                    <SortIcon field="date" />
-                    <DownArrow size="sm" />
-                  </div>
+                  <SortArrow field="date" />
                 </Button>
               </TableHead>
               <TableHead className="py-4 px-[9px]">
@@ -113,10 +116,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
                   <span>Remark</span>
-                  <div className="flex items-center gap-1">
-                    <SortIcon field="remark" />
-                    <DownArrow size="sm" />
-                  </div>
+                  <SortArrow field="remark" />
                 </Button>
               </TableHead>
               <TableHead className="py-4 px-[9px] text-right">
@@ -126,10 +126,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
                   <span>Amount</span>
-                  <div className="flex items-center gap-1">
-                    <SortIcon field="amount" />
-                    <DownArrow size="sm" />
-                  </div>
+                  <SortArrow field="amount" />
                 </Button>
               </TableHead>
               <TableHead className="py-4 px-[9px] text-center">
@@ -147,10 +144,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
                   <span>Type</span>
-                  <div className="flex items-center gap-1">
-                    <SortIcon field="type" />
-                    <DownArrow size="sm" />
-                  </div>
+                  <SortArrow field="type" />
                 </Button>
               </TableHead>
               <TableHead className="w-12 py-4 pr-[18px] pl-[9px]"></TableHead>

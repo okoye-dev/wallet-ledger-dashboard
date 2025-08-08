@@ -5,19 +5,19 @@ interface Profile {
   image: string;
 }
 
-interface ProfileContainerProps {
+interface UserProfilesProps {
   profiles: Profile[];
   additionalCount?: number;
   size?: "sm" | "md" | "lg";
   showNames?: boolean;
 }
 
-const ProfileContainer = ({
+const UserProfiles = ({
   profiles,
   additionalCount = 0,
   size = "md",
   showNames = true,
-}: ProfileContainerProps) => {
+}: UserProfilesProps) => {
   const sizeClasses = {
     sm: "h-6 w-6",
     md: "h-8 w-8", // 32px total including the 3px padding
@@ -27,9 +27,7 @@ const ProfileContainer = ({
   const avatarSize = sizeClasses[size];
 
   return (
-    <div className="flex items-center gap-3">
-      {" "}
-      {/* Changed from gap-4 to gap-3 (12px) */}
+    <section className="flex items-center gap-3 pb-6">
       <div className="flex -space-x-2">
         {profiles.map((profile) => (
           <div
@@ -51,16 +49,8 @@ const ProfileContainer = ({
             </Avatar>
           </div>
         ))}
-        {additionalCount > 0 && (
-          <div className="rounded-full p-[3px] bg-surface border-2 border-surface">
-            <Avatar className={`${avatarSize} bg-muted rounded-full`}>
-              <AvatarFallback className="bg-muted text-muted-foreground text-xs font-medium rounded-full">
-                +{additionalCount}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-        )}
       </div>
+
       {showNames && (
         <div className="text-sm text-muted-foreground">
           {profiles
@@ -71,8 +61,8 @@ const ProfileContainer = ({
           {additionalCount > 0 && ` +${additionalCount} others`}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
-export default ProfileContainer;
+export default UserProfiles;

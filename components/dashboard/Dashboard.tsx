@@ -7,6 +7,7 @@ import WalletHeader from "@/components/dashboard/WalletHeader";
 import SummaryCards from "@/components/dashboard/SummaryCards";
 import TransactionTable from "@/components/dashboard/TransactionTable";
 import { mockTransactions, mockSummary, mockUsers } from "@/data/mockData";
+import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -15,27 +16,26 @@ const Dashboard = () => {
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex bg-background">
       {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
       {/* Main content area */}
-      <div className="lg:pl-64">
-        {/* Header */}
+      <section className="w-full">
         <Header onMenuToggle={toggleSidebar} />
 
-        {/* Page content */}
-        <main className="min-h-[calc(100vh-4rem)]">
-          {/* Wallet header section */}
+        <main
+          className={cn(
+            "min-h-[calc(100vh-4rem)]",
+            sidebarOpen ? "lg:pl-64" : "lg:pl-0",
+            "transition-all duration-300 ease-in-out"
+          )}
+        >
           <WalletHeader users={mockUsers} additionalUsersCount={12} />
-
-          {/* Summary cards */}
           <SummaryCards summary={mockSummary} />
-
-          {/* Transaction table */}
           <TransactionTable transactions={mockTransactions} />
         </main>
-      </div>
+      </section>
     </div>
   );
 };

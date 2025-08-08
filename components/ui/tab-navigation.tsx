@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Tab {
   id: string;
   label: string;
@@ -26,8 +24,8 @@ const TabNavigation = ({
         };
       case "transactions":
         return {
-          width: "w-[130px] lg:w-[150px]",
-          translate: "translate-x-[120px] lg:translate-x-[140px]",
+          width: "w-[130px] lg:w-[160px]",
+          translate: "translate-x-[120px] lg:translate-x-[145px]",
         };
       default:
         return {
@@ -46,7 +44,7 @@ const TabNavigation = ({
           <h2
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`pb-2 text-sm font-medium transition-colors cursor-pointer py-[8px] px-[20px] lg:py-[12px] lg:px-[28px] ${
+            className={`pb-2 text-[15px] font-medium transition-colors cursor-pointer py-[8px] px-[20px] lg:py-[12px] lg:px-[28px] ${
               activeTab === tab.id
                 ? "text-text-header"
                 : "text-muted-foreground hover:text-text-header"

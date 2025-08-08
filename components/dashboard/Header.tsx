@@ -13,16 +13,16 @@ interface HeaderProps {
 
 const Header = ({ onMenuToggle }: HeaderProps) => {
   return (
-    <header className="h-header bg-surface border-b border-card-border sticky top-0 z-50">
-      <div className="flex items-center justify-between px-6 h-full">
-        <section className="flex items-center gap-4">
-          <MenuBars onClick={onMenuToggle} />
+    <header className="h-header bg-surface flex sticky top-0 z-50">
+      <section className="flex absolute left-4 top-4 items-center gap-4">
+        <MenuBars onClick={onMenuToggle} />
 
-          <Link href="/">
-            <FinTrack />
-          </Link>
-        </section>
+        <Link href="/">
+          <FinTrack />
+        </Link>
+      </section>
 
+      <div className="flex items-center w-full justify-center px-6 h-full">
         <section className="flex items-center gap-[28px]">
           <ThemeToggle />
 

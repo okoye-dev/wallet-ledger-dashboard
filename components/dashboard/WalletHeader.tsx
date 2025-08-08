@@ -1,11 +1,10 @@
-import { Share2, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { DownArrow } from "../icons/DownArrow";
 import TabNavigation from "@/components/ui/tab-navigation";
 import IconWrapper from "@/components/icons/IconWrapper";
-import ProfileContainer from "@/components/ui/profile-container";
+import UserProfiles from "@/components/ui/profile-container";
 import { useState } from "react";
 
 interface User {
@@ -35,11 +34,11 @@ const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
   ];
 
   return (
-    <div className="bg-surface border-b border-card-border px-6 py-6">
+    <div className="bg-surface px-6 py-6">
       {/* Wallet title and actions */}
       <section className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl flex items-center gap-2 font-semibold">
+          <h1 className="text-[34px] flex items-center gap-2 font-bold tracking-tight">
             Wallet Ledger
             <DownArrow size="sm" />
           </h1>
@@ -62,14 +61,12 @@ const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
       </section>
 
       {/* User profiles */}
-      <section className="mb-6">
-        <ProfileContainer
-          profiles={profiles}
-          additionalCount={additionalUsersCount}
-          size="md"
-          showNames={true}
-        />
-      </section>
+      <UserProfiles
+        profiles={profiles}
+        additionalCount={additionalUsersCount}
+        size="md"
+        showNames={true}
+      />
 
       {/* Tab navigation */}
       <TabNavigation
