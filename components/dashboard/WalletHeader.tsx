@@ -7,17 +7,7 @@ import IconWrapper from "@/components/icons/IconWrapper";
 import UserProfiles from "@/components/ui/profile-container";
 import { useState } from "react";
 
-interface User {
-  name: string;
-  avatar: string;
-}
-
-interface WalletHeaderProps {
-  users: User[];
-  additionalUsersCount: number;
-}
-
-const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
+const WalletHeader = () => {
   const [activeTab, setActiveTab] = useState("overview");
 
   const tabs = [
@@ -63,7 +53,7 @@ const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
       {/* User profiles */}
       <UserProfiles
         profiles={profiles}
-        additionalCount={additionalUsersCount}
+        additionalCount={12}
         size="md"
         showNames={true}
       />
@@ -78,4 +68,4 @@ const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
   );
 };
 
-export default WalletHeader;
+export { WalletHeader };

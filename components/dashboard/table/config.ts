@@ -1,15 +1,5 @@
 import { SortField } from "@/types/dashboard";
 
-// Table styling constants
-export const TABLE_COLUMN_WIDTHS = {
-  date: "w-[30%]",
-  remark: "w-[25%]",
-  amount: "w-[15%]",
-  currency: "w-[10%]",
-  type: "w-[15%]",
-  actions: "w-[5%]",
-} as const;
-
 export const TABLE_STYLES = {
   headerColor: "text-[#15272d]/[0.62]",
   borderColor: "bg-[#49656e]/20",
@@ -34,43 +24,40 @@ export const TABLE_HEADERS: TableHeaderConfig[] = [
   {
     field: "date",
     label: "Date",
-    width: TABLE_COLUMN_WIDTHS.date,
+    width: "",
     padding: TABLE_STYLES.cellPadding.first,
+    textAlign: "text-left",
     sortable: true,
   },
   {
     field: "remark",
     label: "Remark",
-    width: TABLE_COLUMN_WIDTHS.remark,
+    width: "min-w-fit",
     padding: TABLE_STYLES.cellPadding.middle,
+    textAlign: "text-left",
     sortable: true,
   },
   {
     field: "amount",
     label: "Amount",
-    width: TABLE_COLUMN_WIDTHS.amount,
+    width: "min-w-fit",
     padding: TABLE_STYLES.cellPadding.middle,
-    textAlign: "text-right",
+    textAlign: "text-left",
     sortable: true,
   },
   {
     label: "Currency",
-    width: TABLE_COLUMN_WIDTHS.currency,
+    width: "min-w-fit",
     padding: TABLE_STYLES.cellPadding.middle,
-    textAlign: "text-center",
+    textAlign: "text-left",
     sortable: false,
   },
   {
     field: "type",
     label: "Type",
-    width: TABLE_COLUMN_WIDTHS.type,
+    width: "min-w-fit",
     padding: TABLE_STYLES.cellPadding.middle,
+    textAlign: "text-left",
     sortable: true,
-  },
-  {
-    label: "",
-    width: TABLE_COLUMN_WIDTHS.actions,
-    padding: TABLE_STYLES.cellPadding.last,
-    sortable: false,
   },
 ];

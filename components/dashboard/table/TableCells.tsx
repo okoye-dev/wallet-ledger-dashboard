@@ -8,35 +8,53 @@ interface BaseCellProps {
   children: React.ReactNode;
   className?: string;
   padding: string;
+  isLastRow?: boolean;
 }
 
-const BaseCell = ({ children, className, padding }: BaseCellProps) => (
+const BaseCell = ({
+  children,
+  className,
+  padding,
+  isLastRow = false,
+}: BaseCellProps) => (
   <TableCell className={`py-4 ${padding} relative ${className || ""}`}>
     {children}
-    <div
-      className={`absolute bottom-0 h-px ${TABLE_STYLES.borderColor} ${
-        padding.includes("pl-[18px]") ? "left-[18px]" : "left-[9px]"
-      } ${padding.includes("pr-[18px]") ? "right-[18px]" : "right-[9px]"}`}
-    ></div>
+    {!isLastRow && (
+      <div
+        className={`absolute bottom-0 h-0.5 ${TABLE_STYLES.borderColor} ${
+          padding.includes("pl-[18px]") ? "left-[18px]" : "left-[9px]"
+        } ${padding.includes("pr-[18px]") ? "right-[18px]" : "right-[9px]"}`}
+      ></div>
+    )}
   </TableCell>
 );
 
 interface DateCellProps {
   date: string;
+  isLastRow?: boolean;
 }
 
-export const DateCell = ({ date }: DateCellProps) => (
-  <BaseCell className="font-mono text-sm" padding="pl-[18px] pr-[9px]">
+export const DateCell = ({ date, isLastRow }: DateCellProps) => (
+  <BaseCell
+    className="font-mono text-sm text-[13px] md:text-[15px]"
+    padding="pl-[18px] pr-[9px]"
+    isLastRow={isLastRow}
+  >
     {formatDate(date)}
   </BaseCell>
 );
 
 interface RemarkCellProps {
   remark: string;
+  isLastRow?: boolean;
 }
 
-export const RemarkCell = ({ remark }: RemarkCellProps) => (
-  <BaseCell className="font-medium" padding="px-[9px]">
+export const RemarkCell = ({ remark, isLastRow }: RemarkCellProps) => (
+  <BaseCell
+    className="font-medium text-[13px] md:text-[15px]"
+    padding="px-[9px]"
+    isLastRow={isLastRow}
+  >
     {remark}
   </BaseCell>
 );
@@ -45,37 +63,54 @@ interface AmountCellProps {
   amount: number;
   currency: string;
   type: "Credit" | "Debit";
+  isLastRow?: boolean;
 }
 
-export const AmountCell = ({ amount, currency, type }: AmountCellProps) => (
+export const AmountCell = ({
+  amount,
+  currency,
+  type,
+  isLastRow,
+}: AmountCellProps) => (
   <BaseCell
     className={cn(
-      "text-right font-semibold",
+      "text-left font-semibold text-[13px] md:text-[15px]",
       type === "Credit" ? "text-success" : "text-danger"
     )}
     padding="px-[9px]"
+    isLastRow={isLastRow}
   >
     {type === "Debit" ? "-" : ""}
-    {formatAmount(amount, currency)}
+    {formatAmount(amount)}
   </BaseCell>
 );
 
 interface CurrencyCellProps {
   currency: string;
+  isLastRow?: boolean;
 }
 
-export const CurrencyCell = ({ currency }: CurrencyCellProps) => (
-  <BaseCell className="text-center" padding="px-[9px]">
+export const CurrencyCell = ({ currency, isLastRow }: CurrencyCellProps) => (
+  <BaseCell
+    className="text-left text-[13px] md:text-[15px]"
+    padding="px-[9px]"
+    isLastRow={isLastRow}
+  >
     {currency}
   </BaseCell>
 );
 
 interface TypeCellProps {
   type: "Credit" | "Debit";
+  isLastRow?: boolean;
 }
 
-export const TypeCell = ({ type }: TypeCellProps) => (
-  <BaseCell className="" padding="px-[9px]">
+export const TypeCell = ({ type, isLastRow }: TypeCellProps) => (
+  <BaseCell
+    className="text-[13px] md:text-[15px]"
+    padding="px-[9px]"
+    isLastRow={isLastRow}
+  >
     <StatusBadge status={type} />
   </BaseCell>
 );

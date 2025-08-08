@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/dashboard/Header";
-import Sidebar from "@/components/dashboard/Sidebar";
-import WalletHeader from "@/components/dashboard/WalletHeader";
-import SummaryCards from "@/components/dashboard/SummaryCards";
-import TransactionTable from "@/components/dashboard/TransactionTable";
-import { mockTransactions, mockUsers, mockSummary } from "@/data/mockData";
+import {
+  Header,
+  Sidebar,
+  WalletHeader,
+  SummaryCards,
+  TransactionTable,
+} from "@/components/dashboard";
+import { mockTransactions, mockSummary } from "@/data/mockData";
 import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
@@ -30,7 +32,7 @@ const Dashboard = () => {
             "transition-all duration-300 ease-in-out"
           )}
         >
-          <WalletHeader users={mockUsers} additionalUsersCount={12} />
+          <WalletHeader />
           <SummaryCards summary={mockSummary} />
           <TransactionTable transactions={mockTransactions} />
         </main>
@@ -39,4 +41,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export { Dashboard };

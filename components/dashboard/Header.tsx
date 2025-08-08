@@ -36,4 +36,4 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
   );
 };
 
-export default Header;
+export { Header };

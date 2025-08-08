@@ -26,7 +26,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
     <div className="bg-surface overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="border-b border-card-border">
+          <TableRow>
             <TableHeaderRow
               sortField={sortField}
               sortDirection={sortDirection}
@@ -36,20 +36,33 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         </TableHeader>
 
         <TableBody>
-          {sortedTransactions.map((transaction) => (
+          {sortedTransactions.map((transaction, index) => (
             <TableRow
               key={transaction.id}
               className="hover:bg-surface-muted/50 transition-colors border-b-0"
             >
-              <DateCell date={transaction.date} />
-              <RemarkCell remark={transaction.remark} />
+              <DateCell
+                date={transaction.date}
+                isLastRow={index === sortedTransactions.length - 1}
+              />
+              <RemarkCell
+                remark={transaction.remark}
+                isLastRow={index === sortedTransactions.length - 1}
+              />
               <AmountCell
                 amount={transaction.amount}
                 currency={transaction.currency}
                 type={transaction.type}
+                isLastRow={index === sortedTransactions.length - 1}
               />
-              <CurrencyCell currency={transaction.currency} />
-              <TypeCell type={transaction.type} />
+              <CurrencyCell
+                currency={transaction.currency}
+                isLastRow={index === sortedTransactions.length - 1}
+              />
+              <TypeCell
+                type={transaction.type}
+                isLastRow={index === sortedTransactions.length - 1}
+              />
             </TableRow>
           ))}
         </TableBody>
@@ -58,4 +71,4 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
   );
 };
 
-export default TransactionTable;
+export { TransactionTable };

@@ -1,52 +1,49 @@
-import { SortField, Transaction, SortDirection } from "@/types/dashboard";
+import { Transaction } from "@/types/dashboard";
 
-// Formatting functions
 export const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+  const date = new Date(dateString);
+  return date.toISOString().split("T")[0];
 };
 
-export const formatAmount = (amount: number, currency: string): string => {
-  const formatter = new Intl.NumberFormat("en-US", {
+export const formatAmount = (amount: number): string => {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-
-  return formatter.format(Math.abs(amount));
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(amount);
 };
 
-// Sorting logic
 export const sortTransactions = (
   transactions: Transaction[],
-  sortField: SortField,
-  sortDirection: SortDirection
+  field: keyof Transaction,
+  direction: "asc" | "desc"
 ): Transaction[] => {
   return [...transactions].sort((a, b) => {
-    let aValue: any = a[sortField];
-    let bValue: any = b[sortField];
+    const aValue = a[field];
+    const bValue = b[field];
 
-    if (sortField === "date") {
-      aValue = new Date(aValue).getTime();
-      bValue = new Date(bValue).getTime();
-    } else if (sortField === "amount") {
-      aValue = Math.abs(aValue);
-      bValue = Math.abs(bValue);
+    // Handle different data types
+    if (typeof aValue === "string" && typeof bValue === "string") {
+      const comparison = aValue.localeCompare(bValue);
+      return direction === "asc" ? comparison : -comparison;
     }
 
-    if (typeof aValue === "string") {
-      aValue = aValue.toLowerCase();
-      bValue = bValue.toLowerCase();
+    if (typeof aValue === "number" && typeof bValue === "number") {
+      const comparison = aValue - bValue;
+      return direction === "asc" ? comparison : -comparison;
     }
 
-    if (sortDirection === "asc") {
-      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-    } else {
-      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+    // Handle Date fields (assuming they are stored as strings)
+    if (field === "date") {
+      const dateA = new Date(aValue as string);
+      const dateB = new Date(bValue as string);
+      const comparison = dateA.getTime() - dateB.getTime();
+      return direction === "asc" ? comparison : -comparison;
     }
+
+    // Fallback for other types
+    if (aValue < bValue) return direction === "asc" ? -1 : 1;
+    if (aValue > bValue) return direction === "asc" ? 1 : -1;
+    return 0;
   });
 };

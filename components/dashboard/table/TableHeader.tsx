@@ -3,7 +3,7 @@ import { TableHead } from "@/components/ui/table";
 import { SortDirection, SortField } from "@/types/dashboard";
 import { TABLE_HEADERS, TABLE_STYLES } from "./config";
 
-// Fixed-size arrow component for table headers - matching original DownArrow size
+// Fixed-size arrow component for table headers - smaller size for column headers
 const TableArrow = ({ isRotated = false }: { isRotated?: boolean }) => (
   <div
     className={`transition-transform duration-200 flex-shrink-0 ${
@@ -11,8 +11,8 @@ const TableArrow = ({ isRotated = false }: { isRotated?: boolean }) => (
     }`}
   >
     <svg
-      width="16"
-      height="16"
+      width="12"
+      height="12"
       viewBox="0 0 24 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -64,14 +64,14 @@ const TableHeaderCell = ({
   if (config.sortable && config.field) {
     return (
       <TableHead
+        onClick={() => onSort(config.field!)}
         className={`py-4 ${config.padding} ${config.width} ${
           config.textAlign || ""
-        } relative`}
+        } relative group cursor-pointer hover:bg-success-subtle/50 duration-300`}
       >
         <Button
           variant="ghost"
-          onClick={() => onSort(config.field!)}
-          className={`h-auto p-0 font-semibold ${TABLE_STYLES.headerColor} hover:text-foreground flex items-center justify-between w-full`}
+          className={`h-auto p-0 hover:bg-transparent font-semibold text-[11px] md:text-[13px] ${TABLE_STYLES.headerColor} group-hover:text-foreground flex items-center justify-between w-full`}
         >
           <span>{config.label}</span>
           <SortArrow
@@ -81,7 +81,7 @@ const TableHeaderCell = ({
           />
         </Button>
         <div
-          className={`absolute bottom-0 h-px ${
+          className={`absolute bottom-0 h-0.5 ${
             TABLE_STYLES.borderColor
           } ${getBorderStyle()}`}
         ></div>
@@ -96,15 +96,14 @@ const TableHeaderCell = ({
       } relative`}
     >
       {config.label && (
-        <div className="flex items-center justify-between w-full">
-          <span className={`font-semibold ${TABLE_STYLES.headerColor}`}>
-            {config.label}
-          </span>
-          {config.label !== "" && <TableArrow />}
-        </div>
+        <span
+          className={`font-semibold text-[11px] md:text-[13px] ${TABLE_STYLES.headerColor}`}
+        >
+          {config.label}
+        </span>
       )}
       <div
-        className={`absolute bottom-0 h-px ${
+        className={`absolute bottom-0 h-0.5 ${
           TABLE_STYLES.borderColor
         } ${getBorderStyle()}`}
       ></div>

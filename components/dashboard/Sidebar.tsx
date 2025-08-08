@@ -73,4 +73,4 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
   );
 };
 
-export default Sidebar;
+export { Sidebar };

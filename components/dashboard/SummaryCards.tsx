@@ -15,7 +15,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
       <h2 className={`${SUMMARY_STYLES.headerSize} font-bold mb-4`}>Summary</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {formattedCards.map((card, index) => (
+        {formattedCards.map((card) => (
           <SummaryCard
             key={card.title}
             title={card.title}
@@ -29,4 +29,4 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
   );
 };
 
-export default SummaryCards;
+export { SummaryCards };
