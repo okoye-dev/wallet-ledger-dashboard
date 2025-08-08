@@ -35,7 +35,7 @@ interface DateCellProps {
 
 export const DateCell = ({ date, isLastRow }: DateCellProps) => (
   <BaseCell
-    className={`font-mono ${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
+    className={`${TABLE_STYLES.cellColor} ${TABLE_STYLES.textSizes.cell}`}
     padding="pl-[18px] pr-[9px]"
     isLastRow={isLastRow}
   >

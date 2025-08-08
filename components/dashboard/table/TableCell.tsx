@@ -26,10 +26,7 @@ interface DateCellProps {
 }
 
 export const DateCell = ({ date }: DateCellProps) => (
-  <BaseCell
-    className="font-mono text-sm text-foreground"
-    padding="pl-[18px] pr-[9px]"
-  >
+  <BaseCell className="text-sm text-foreground" padding="pl-[18px] pr-[9px]">
     {formatDate(date)}
   </BaseCell>
 );

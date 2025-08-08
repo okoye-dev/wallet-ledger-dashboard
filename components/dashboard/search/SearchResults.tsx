@@ -130,7 +130,7 @@ export const SearchResults = ({
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <CalendarDays className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground font-mono">
+                      <span className="text-xs text-muted-foreground">
                         {formatDate(transaction.date)}
                       </span>
                       <span className="text-xs text-muted-foreground">•</span>
