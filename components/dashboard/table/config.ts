@@ -30,7 +30,7 @@ export const TABLE_HEADERS: TableHeaderConfig[] = [
   {
     field: "date",
     label: "Date",
-    width: "md:w-[60%]",
+    width: "md:w-[55%]",
     padding: TABLE_STYLES.cellPadding.first,
     textAlign: "text-left",
     sortable: true,
