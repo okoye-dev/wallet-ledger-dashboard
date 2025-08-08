@@ -1,7 +1,7 @@
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { DownArrow } from "../icons/DownArrow";
+import { DownArrow } from "@/components/icons";
 import TabNavigation from "@/components/ui/tab-navigation";
 import IconWrapper from "@/components/icons/IconWrapper";
 import UserProfiles from "@/components/ui/profile-container";
@@ -34,7 +34,7 @@ const WalletHeader = ({ users, additionalUsersCount }: WalletHeaderProps) => {
   ];
 
   return (
-    <div className="bg-surface px-6 py-6">
+    <div className="bg-surface">
       {/* Wallet title and actions */}
       <section className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">

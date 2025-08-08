@@ -6,12 +6,11 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import WalletHeader from "@/components/dashboard/WalletHeader";
 import SummaryCards from "@/components/dashboard/SummaryCards";
 import TransactionTable from "@/components/dashboard/TransactionTable";
-import { mockTransactions, mockSummary, mockUsers } from "@/data/mockData";
+import { mockTransactions, mockUsers, mockSummary } from "@/data/mockData";
 import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
 
@@ -26,8 +25,8 @@ const Dashboard = () => {
 
         <main
           className={cn(
-            "min-h-[calc(100vh-4rem)]",
-            sidebarOpen ? "lg:pl-64" : "lg:pl-0",
+            "min-h-[calc(100vh-4rem)] px-6 py-6 space-y-10",
+            sidebarOpen ? "lg:pl-64" : "lg:pl-6",
             "transition-all duration-300 ease-in-out"
           )}
         >

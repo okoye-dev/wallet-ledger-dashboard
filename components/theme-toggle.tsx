@@ -7,13 +7,12 @@ import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Don't render until mounted to avoid hydration mismatch
   if (!mounted) {
     return (
       <Button

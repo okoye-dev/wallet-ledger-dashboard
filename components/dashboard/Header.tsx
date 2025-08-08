@@ -1,12 +1,8 @@
-import { Grid3x3, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ThemeToggle from "@/components/theme-toggle";
-import { FinTrack } from "../icons/FinTrack";
+import { FinTrack, MenuBars, Search, Windows } from "@/components/icons";
 import Link from "next/link";
-import { Windows } from "../icons/Windows";
-import { Search } from "../icons/Search";
-import { MenuBars } from "../icons/MenuBars";
+
 interface HeaderProps {
   onMenuToggle?: () => void;
 }
@@ -28,7 +24,6 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
 
           <Search />
           <Windows />
-
           <Avatar className="h-8 w-8">
             <AvatarImage src="/profile.png" />
             <AvatarFallback className="bg-primary text-primary-foreground text-sm">

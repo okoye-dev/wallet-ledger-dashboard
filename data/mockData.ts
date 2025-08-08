@@ -75,6 +75,13 @@ export const mockTransactions: Transaction[] = [
   },
 ];
 
+export const mockUsers = [
+  { name: "Ava Johnson", avatar: "" },
+  { name: "Liam Smith", avatar: "" },
+  { name: "Noah Brown", avatar: "" },
+  { name: "Emma Davis", avatar: "" },
+];
+
 export const mockSummary: DashboardSummary = {
   totalBalance: 12345,
   totalCredits: 7890,
@@ -85,10 +92,3 @@ export const mockSummary: DashboardSummary = {
   debitsChange: -2,
   transactionChange: 10,
 };
-
-export const mockUsers = [
-  { name: "Ava Johnson", avatar: "" },
-  { name: "Liam Smith", avatar: "" },
-  { name: "Noah Brown", avatar: "" },
-  { name: "Emma Davis", avatar: "" },
-];

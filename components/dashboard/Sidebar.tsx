@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { ReactNode } from "react";
-import { FinTrack } from "../icons/FinTrack";
-import { MenuBars } from "../icons/MenuBars";
 
 interface SidebarItem {
   icon?: ReactNode;
