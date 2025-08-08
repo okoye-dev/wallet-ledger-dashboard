@@ -51,7 +51,6 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
               />
               <AmountCell
                 amount={transaction.amount}
-                currency={transaction.currency}
                 type={transaction.type}
                 isLastRow={index === sortedTransactions.length - 1}
               />

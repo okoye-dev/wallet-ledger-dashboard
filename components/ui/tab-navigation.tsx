@@ -19,13 +19,13 @@ const TabNavigation = ({
     switch (tabId) {
       case "overview":
         return {
-          width: "w-[100px] lg:w-[120px]",
+          width: "w-[110px] lg:w-[120px]",
           translate: "translate-x-0",
         };
       case "transactions":
         return {
-          width: "w-[130px] lg:w-[160px]",
-          translate: "translate-x-[120px] lg:translate-x-[145px]",
+          width: "w-[140px] lg:w-[160px]",
+          translate: "translate-x-[125px] lg:translate-x-[145px]",
         };
       default:
         return {

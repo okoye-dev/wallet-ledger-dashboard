@@ -27,7 +27,7 @@ const Dashboard = () => {
 
         <main
           className={cn(
-            "min-h-[calc(100vh-4rem)] px-6 py-6 space-y-10",
+            "min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6 space-y-6 md:space-y-10",
             sidebarOpen ? "lg:pl-64" : "lg:pl-6",
             "transition-all duration-300 ease-in-out"
           )}

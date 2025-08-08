@@ -39,8 +39,8 @@ export const SUMMARY_CARDS_CONFIG: SummaryCardConfig[] = [
 export const SUMMARY_STYLES = {
   cardBg: "bg-summary-card-bg",
   cardRadius: "rounded-[20px]",
-  titleSize: "text-[17px]",
-  valueSize: "text-4xl lg:text-[34px]",
+  titleSize: "text-[10px] xs:text-[12px] md:text-[15px] lg:text-[17px]",
+  valueSize: "text-xl xs:text-3xl lg:text-[34px]",
   changeSize: "text-sm lg:text-[13px]",
-  headerSize: "text-[20px]",
+  headerSize: "text-[18px] lg:text-[20px]",
 } as const;

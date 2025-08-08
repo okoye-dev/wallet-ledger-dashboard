@@ -30,7 +30,7 @@ export const SummaryCard = ({
     >
       <CardHeader className="flex flex-row justify-between px-0">
         <p
-          className={`${SUMMARY_STYLES.titleSize} font-medium text-muted-foreground`}
+          className={`${SUMMARY_STYLES.titleSize} text-muted-foreground font-bold`}
         >
           {title}
         </p>

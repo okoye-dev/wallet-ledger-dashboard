@@ -56,7 +56,7 @@ export const AmountCell = ({ amount, currency, type }: AmountCellProps) => (
     padding="px-[9px]"
   >
     {type === "Debit" ? "-" : ""}
-    {formatAmount(amount, currency)}
+    {formatAmount(amount)}
   </BaseCell>
 );
 

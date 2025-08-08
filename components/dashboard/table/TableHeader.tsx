@@ -71,7 +71,7 @@ const TableHeaderCell = ({
       >
         <Button
           variant="ghost"
-          className={`h-auto p-0 hover:bg-transparent font-semibold text-[11px] md:text-[13px] ${TABLE_STYLES.headerColor} group-hover:text-foreground flex items-center justify-between w-full`}
+          className={`h-auto p-0 hover:bg-transparent font-semibold text-[8px] xs:text-[9px] md:text-[11px] ${TABLE_STYLES.headerColor} group-hover:text-foreground flex items-center justify-between w-full`}
         >
           <span>{config.label}</span>
           <SortArrow
@@ -97,7 +97,7 @@ const TableHeaderCell = ({
     >
       {config.label && (
         <span
-          className={`font-semibold text-[11px] md:text-[13px] ${TABLE_STYLES.headerColor}`}
+          className={`font-semibold text-[8px] xs:text-[9px] md:text-[11px] ${TABLE_STYLES.headerColor}`}
         >
           {config.label}
         </span>

@@ -9,29 +9,36 @@ interface HeaderProps {
 
 const Header = ({ onMenuToggle }: HeaderProps) => {
   return (
-    <header className="h-header bg-surface flex sticky top-0 z-50">
-      <section className="flex absolute left-4 top-4 items-center gap-4">
-        <MenuBars onClick={onMenuToggle} />
+    <header className="h-header bg-surface flex sticky top-0 z-50 justify-between items-center px-4 md:px-6">
+      <section className="flex items-center gap-1.5 xs:gap-2 md:gap-4">
+        <MenuBars
+          onClick={onMenuToggle}
+          className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5"
+        />
 
-        <Link href="/">
+        <Link href="/" className="scale-[0.65] xs:scale-75 md:scale-100">
           <FinTrack />
         </Link>
       </section>
 
-      <div className="flex items-center w-full justify-center px-6 h-full">
-        <section className="flex items-center gap-[28px]">
+      <section className="flex items-center gap-[10px] xs:gap-[14px] md:gap-[28px]">
+        <div className="scale-[0.65] xs:scale-75 md:scale-100">
           <ThemeToggle />
+        </div>
 
+        <div className="scale-[0.65] xs:scale-75 md:scale-100">
           <Search />
+        </div>
+        <div className="scale-[0.65] xs:scale-75 md:scale-100">
           <Windows />
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/profile.png" />
-            <AvatarFallback className="bg-primary text-primary-foreground text-sm">
-              JD
-            </AvatarFallback>
-          </Avatar>
-        </section>
-      </div>
+        </div>
+        <Avatar className="h-5 w-5 xs:h-6 xs:w-6 md:h-8 md:w-8">
+          <AvatarImage src="/profile.png" />
+          <AvatarFallback className="bg-primary text-primary-foreground text-[8px] xs:text-[10px] md:text-sm">
+            JD
+          </AvatarFallback>
+        </Avatar>
+      </section>
     </header>
   );
 };

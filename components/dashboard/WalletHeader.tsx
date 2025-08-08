@@ -26,26 +26,26 @@ const WalletHeader = () => {
   return (
     <div className="bg-surface">
       {/* Wallet title and actions */}
-      <section className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <h1 className="text-[34px] flex items-center gap-2 font-bold tracking-tight">
+      <section className="flex items-center justify-between mb-6 gap-2">
+        <div className="flex items-center gap-1 xs:gap-2 md:gap-3">
+          <h1 className="text-[16px] xs:text-[18px] md:text-[28px] lg:text-[34px] flex items-center gap-1 md:gap-2 font-bold tracking-tight">
             Wallet Ledger
             <DownArrow size="sm" />
           </h1>
           <StatusBadge status="Active" />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 md:gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="gap-2 bg-green-share hover:bg-green-share/80 rounded-2xl"
+            className="gap-1 md:gap-2 bg-green-share hover:bg-green-share/80 rounded-2xl text-[9px] xs:text-[10px] md:text-sm px-1.5 xs:px-2 md:px-3"
           >
             Share
           </Button>
 
           <IconWrapper variant="bordered" size="md">
-            <MoreHorizontal className="h-4 w-4" />
+            <MoreHorizontal className="h-3 w-3 md:h-4 md:w-4" />
           </IconWrapper>
         </div>
       </section>

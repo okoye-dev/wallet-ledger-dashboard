@@ -14,7 +14,7 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
     <div className="bg-background">
       <h2 className={`${SUMMARY_STYLES.headerSize} font-bold mb-4`}>Summary</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4">
         {formattedCards.map((card) => (
           <SummaryCard
             key={card.title}

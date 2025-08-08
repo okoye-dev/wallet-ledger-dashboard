@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 interface StatusBadgeProps {
   status: "Active" | "Credit" | "Debit";
   className?: string;
+  size?: "sm" | "md";
 }
 
-const StatusBadge = ({ status, className }: StatusBadgeProps) => {
+const StatusBadge = ({ status, className, size = "md" }: StatusBadgeProps) => {
   const getStatusConfig = (status: string) => {
     switch (status) {
       case "Active":
@@ -40,7 +41,14 @@ const StatusBadge = ({ status, className }: StatusBadgeProps) => {
         className="h-[6px] w-[6px] rounded-full"
         style={{ backgroundColor: config.dotColor }}
       />
-      <p className="text-sm text-foreground">{status}</p>
+      <p
+        className={cn(
+          "text-sm text-foreground",
+          size === "sm" && "text-[10px]"
+        )}
+      >
+        {status}
+      </p>
     </Badge>
   );
 };
