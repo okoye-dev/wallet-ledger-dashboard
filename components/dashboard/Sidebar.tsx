@@ -39,13 +39,13 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
       <aside
         className={cn(
           // Base styles - positioned below header
-          "fixed lg:top-4 top-header z-[99] left-0 h-[calc(100vh-var(--header-height))] w-64 bg-gradient-to-t from-surface to-background transition-all",
+          "fixed lg:absolute lg:top-4 top-header z-[99] left-0 h-[calc(100vh-var(--header-height))] w-64 bg-gradient-to-t from-surface to-background transition-all",
           // Mobile: slide in/out animation
           "transform duration-300 ease-in-out",
-          // Desktop: always visible, static positioning
-          "lg:fixed lg:transform-none lg:h-full",
+          // Desktop: always visible, absolute positioning within container
+          "lg:absolute lg:transform-none lg:h-full",
           // Mobile: hidden by default, slide in when open
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
         )}
       >
         <nav className="flex-1 px-4 py-6 lg:py-8">

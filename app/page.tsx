@@ -3,5 +3,9 @@
 import { Dashboard } from "@/components/dashboard";
 
 export default function Home() {
-  return <Dashboard />;
+  return (
+    <div className="w-full">
+      <Dashboard />
+    </div>
+  );
 }

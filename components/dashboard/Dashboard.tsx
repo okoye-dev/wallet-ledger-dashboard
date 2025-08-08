@@ -86,28 +86,30 @@ const Dashboard = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen lg:px-4 flex bg-background">
-        <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
+      <div className="min-h-screen bg-background">
+        <div className="w-full max-w-[99rem] mx-auto lg:px-4 flex relative">
+          <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
-        <section className="w-full">
-          <Header
-            onMenuToggle={toggleSidebar}
-            onTransactionSelect={onTransactionSelect}
-            onCloseSidebar={closeSidebar}
-            onNavigateToTransactions={navigateToTransactions}
-          />
+          <section className="w-full">
+            <Header
+              onMenuToggle={toggleSidebar}
+              onTransactionSelect={onTransactionSelect}
+              onCloseSidebar={closeSidebar}
+              onNavigateToTransactions={navigateToTransactions}
+            />
 
-          <main
-            className={cn(
-              "min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6 space-y-6 md:space-y-10",
-              sidebarOpen ? "lg:pl-64" : "lg:pl-6",
-              "transition-all duration-300 ease-in-out"
-            )}
-          >
-            <WalletHeader activeTab={activeTab} onTabChange={setActiveTab} />
-            {renderTabContent()}
-          </main>
-        </section>
+            <main
+              className={cn(
+                "min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6 space-y-6 md:space-y-10",
+                sidebarOpen ? "lg:pl-64" : "lg:pl-6",
+                "transition-all duration-300 ease-in-out"
+              )}
+            >
+              <WalletHeader activeTab={activeTab} onTabChange={setActiveTab} />
+              {renderTabContent()}
+            </main>
+          </section>
+        </div>
       </div>
     </ErrorBoundary>
   );
