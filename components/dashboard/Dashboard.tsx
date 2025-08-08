@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Header,
   Sidebar,
@@ -9,23 +9,25 @@ import {
   TransactionTable,
 } from "@/components/dashboard";
 import { TransactionsContent } from "@/components/dashboard/TransactionsContent";
-import { mockTransactions, mockSummary } from "@/data/mockData";
 import { ErrorBoundary } from "@/components/dashboard/error/ErrorBoundary";
+import { useDashboardSummary, useTransactions } from "@/hooks/api/useDashboard";
 import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
-  const [isLoading, setIsLoading] = useState(true);
 
-  // Simulate loading data
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // 1.5 second loading simulation
+  const {
+    data: summary,
+    isLoading: summaryLoading,
+    error: summaryError,
+  } = useDashboardSummary();
 
-    return () => clearTimeout(timer);
-  }, []);
+  const {
+    data: transactionsData,
+    isLoading: transactionsLoading,
+    error: transactionsError,
+  } = useTransactions();
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
@@ -44,10 +46,15 @@ const Dashboard = () => {
       default:
         return (
           <>
-            <SummaryCards summary={mockSummary} isLoading={isLoading} />
+            <SummaryCards
+              summary={summary}
+              isLoading={summaryLoading}
+              error={summaryError}
+            />
             <TransactionTable
-              transactions={mockTransactions}
-              isLoading={isLoading}
+              transactions={transactionsData?.transactions || []}
+              isLoading={transactionsLoading}
+              error={transactionsError}
               onAddTransaction={handleAddTransaction}
             />
           </>
@@ -58,7 +65,6 @@ const Dashboard = () => {
   return (
     <ErrorBoundary>
       <div className="min-h-screen flex bg-background">
-        {/* Sidebar */}
         <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
         {/* Main content area */}

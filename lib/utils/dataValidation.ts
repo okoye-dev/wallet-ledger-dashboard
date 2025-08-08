@@ -25,27 +25,35 @@ export const isValidTransactionType = (
 };
 
 export const validateTransaction = (
-  transaction: any
+  transaction: unknown
 ): transaction is Transaction => {
   if (!transaction || typeof transaction !== "object") return false;
 
+  const t = transaction as Record<string, unknown>;
+
   return (
-    typeof transaction.id === "string" &&
-    transaction.id.trim().length > 0 &&
-    isValidDate(transaction.date) &&
-    typeof transaction.remark === "string" &&
-    transaction.remark.trim().length > 0 &&
-    isValidAmount(transaction.amount) &&
-    transaction.amount > 0 &&
-    isValidCurrency(transaction.currency) &&
-    isValidTransactionType(transaction.type)
+    typeof t.id === "string" &&
+    t.id.trim().length > 0 &&
+    typeof t.date === "string" &&
+    isValidDate(t.date) &&
+    typeof t.remark === "string" &&
+    t.remark.trim().length > 0 &&
+    typeof t.amount === "number" &&
+    isValidAmount(t.amount) &&
+    t.amount > 0 &&
+    typeof t.currency === "string" &&
+    isValidCurrency(t.currency) &&
+    typeof t.type === "string" &&
+    isValidTransactionType(t.type)
   );
 };
 
 export const validateDashboardSummary = (
-  summary: any
+  summary: unknown
 ): summary is DashboardSummary => {
   if (!summary || typeof summary !== "object") return false;
+
+  const s = summary as Record<string, unknown>;
 
   const requiredFields = [
     "totalBalance",
@@ -59,11 +67,16 @@ export const validateDashboardSummary = (
   ];
 
   return requiredFields.every(
-    (field) => field in summary && isValidAmount(summary[field])
+    (field) =>
+      field in s &&
+      typeof s[field] === "number" &&
+      isValidAmount(s[field] as number)
   );
 };
 
-export const sanitizeTransactions = (transactions: any[]): Transaction[] => {
+export const sanitizeTransactions = (
+  transactions: unknown[]
+): Transaction[] => {
   if (!Array.isArray(transactions)) return [];
 
   return transactions.filter(validateTransaction);
@@ -80,7 +93,9 @@ export const createDefaultSummary = (): DashboardSummary => ({
   transactionChange: 0,
 });
 
-export const sanitizeDashboardSummary = (summary: any): DashboardSummary => {
+export const sanitizeDashboardSummary = (
+  summary: unknown
+): DashboardSummary => {
   if (validateDashboardSummary(summary)) {
     return summary;
   }

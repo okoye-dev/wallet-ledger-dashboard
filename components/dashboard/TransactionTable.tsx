@@ -6,7 +6,7 @@ import { useTableSort } from "@/hooks/useTableSort";
 import { TableHeaderRow } from "./table/TableHeader";
 import { TransactionTableSkeleton } from "./loading/TransactionTableSkeleton";
 import { EmptyTransactionState } from "./empty/EmptyTransactionState";
-import { ErrorBoundary } from "./error/ErrorBoundary";
+import { ErrorBoundary, DefaultErrorFallback } from "./error/ErrorBoundary";
 import { sanitizeTransactions } from "@/lib/utils/dataValidation";
 import {
   DateCell,
@@ -19,6 +19,7 @@ import {
 interface TransactionTableProps {
   transactions: Transaction[];
   isLoading?: boolean;
+  error?: Error | null;
   onAddTransaction?: () => void;
 }
 
@@ -91,10 +92,20 @@ const TransactionTableContent = ({
 const TransactionTable = ({
   transactions,
   isLoading = false,
+  error,
   onAddTransaction,
 }: TransactionTableProps) => {
   if (isLoading) {
     return <TransactionTableSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <DefaultErrorFallback
+        error={error}
+        resetError={() => window.location.reload()}
+      />
+    );
   }
 
   return (

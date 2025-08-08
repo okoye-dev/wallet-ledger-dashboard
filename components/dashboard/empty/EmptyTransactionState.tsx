@@ -20,8 +20,8 @@ export const EmptyTransactionState = ({
         </h3>
 
         <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-          You don't have any transactions yet. Start adding transactions to see
-          them here.
+          You don&apos;t have any transactions yet. Start adding transactions to
+          see them here.
         </p>
 
         {onAddTransaction && (

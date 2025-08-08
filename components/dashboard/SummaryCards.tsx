@@ -2,13 +2,17 @@ import { DashboardSummary } from "@/types/dashboard";
 import { useSummaryData } from "@/hooks/useSummaryData";
 import { SummaryCard } from "./summary/SummaryCard";
 import { SummaryCardsLoadingSkeleton } from "./loading/SummaryCardSkeleton";
-import { ErrorBoundary } from "./error/ErrorBoundary";
+import { ErrorBoundary, DefaultErrorFallback } from "./error/ErrorBoundary";
 import { SUMMARY_STYLES } from "./summary/config";
-import { sanitizeDashboardSummary } from "@/lib/utils/dataValidation";
+import {
+  sanitizeDashboardSummary,
+  createDefaultSummary,
+} from "@/lib/utils/dataValidation";
 
 interface SummaryCardsProps {
-  summary: DashboardSummary;
+  summary?: DashboardSummary;
   isLoading?: boolean;
+  error?: Error | null;
 }
 
 const SummaryCardsContent = ({ summary }: { summary: DashboardSummary }) => {
@@ -34,14 +38,30 @@ const SummaryCardsContent = ({ summary }: { summary: DashboardSummary }) => {
   );
 };
 
-const SummaryCards = ({ summary, isLoading = false }: SummaryCardsProps) => {
+const SummaryCards = ({
+  summary,
+  isLoading = false,
+  error,
+}: SummaryCardsProps) => {
   if (isLoading) {
     return <SummaryCardsLoadingSkeleton />;
   }
 
+  if (error) {
+    return (
+      <DefaultErrorFallback
+        error={error}
+        resetError={() => window.location.reload()}
+      />
+    );
+  }
+
+  // Use default summary if none provided
+  const validSummary = summary || createDefaultSummary();
+
   return (
     <ErrorBoundary>
-      <SummaryCardsContent summary={summary} />
+      <SummaryCardsContent summary={validSummary} />
     </ErrorBoundary>
   );
 };

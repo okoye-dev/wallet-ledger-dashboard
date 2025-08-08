@@ -15,8 +15,8 @@ const TransactionsContent = ({
             Transactions Coming Soon
           </h3>
           <p className="text-muted-foreground text-sm">
-            We're working hard to bring you detailed transaction history and
-            analytics. Stay tuned for this exciting feature!
+            We&apos;re working hard to bring you detailed transaction history
+            and analytics. Stay tuned for this exciting feature!
           </p>
         </div>
 
