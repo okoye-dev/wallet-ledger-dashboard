@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Header,
   Sidebar,
@@ -11,12 +10,31 @@ import {
 import { TransactionsContent } from "@/components/dashboard/TransactionsContent";
 import { ErrorBoundary } from "@/components/dashboard/error/ErrorBoundary";
 import { useDashboardSummary, useTransactions } from "@/hooks/api/useDashboard";
+import { useDashboardNavigation } from "@/hooks/useDashboardNavigation";
+import { useDashboardActions } from "@/hooks/useDashboardActions";
+import { Transaction } from "@/types/dashboard";
 import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("overview");
+  // Navigation state
+  const {
+    sidebarOpen,
+    activeTab,
+    toggleSidebar,
+    closeSidebar,
+    handleBackToOverview,
+    setActiveTab,
+    handleTransactionSelectWithNavigation,
+  } = useDashboardNavigation();
 
+  // Dashboard actions
+  const {
+    selectedTransactionId,
+    handleTransactionSelect,
+    handleAddTransaction,
+  } = useDashboardActions();
+
+  // Data fetching
   const {
     data: summary,
     isLoading: summaryLoading,
@@ -29,13 +47,9 @@ const Dashboard = () => {
     error: transactionsError,
   } = useTransactions();
 
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
-  const closeSidebar = () => setSidebarOpen(false);
-  const handleBackToOverview = () => setActiveTab("overview");
-
-  const handleAddTransaction = () => {
-    // This would typically open a modal or navigate to an add transaction page
-    console.log("Add transaction clicked");
+  // Combined transaction select handler
+  const onTransactionSelect = (transaction: Transaction) => {
+    handleTransactionSelectWithNavigation(transaction, handleTransactionSelect);
   };
 
   const renderTabContent = () => {
@@ -51,12 +65,15 @@ const Dashboard = () => {
               isLoading={summaryLoading}
               error={summaryError}
             />
-            <TransactionTable
-              transactions={transactionsData?.transactions || []}
-              isLoading={transactionsLoading}
-              error={transactionsError}
-              onAddTransaction={handleAddTransaction}
-            />
+            <div data-transaction-table>
+              <TransactionTable
+                transactions={transactionsData?.transactions || []}
+                isLoading={transactionsLoading}
+                error={transactionsError}
+                onAddTransaction={handleAddTransaction}
+                selectedTransactionId={selectedTransactionId}
+              />
+            </div>
           </>
         );
     }
@@ -67,9 +84,11 @@ const Dashboard = () => {
       <div className="min-h-screen flex bg-background">
         <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
-        {/* Main content area */}
         <section className="w-full">
-          <Header onMenuToggle={toggleSidebar} />
+          <Header
+            onMenuToggle={toggleSidebar}
+            onTransactionSelect={onTransactionSelect}
+          />
 
           <main
             className={cn(

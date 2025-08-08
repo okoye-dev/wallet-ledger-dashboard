@@ -1,0 +1,201 @@
+"use client";
+
+import { Transaction } from "@/types/dashboard";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CalendarDays, CreditCard, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface SearchResultsProps {
+  query: string;
+  transactions: Transaction[];
+  isLoading?: boolean;
+  onTransactionClick?: (transaction: Transaction) => void;
+  onClose?: () => void;
+  className?: string;
+}
+
+export const SearchResults = ({
+  query,
+  transactions,
+  isLoading = false,
+  onTransactionClick,
+  onClose,
+  className,
+}: SearchResultsProps) => {
+  if (!query.trim()) {
+    return (
+      <Card className={cn("absolute top-full mt-2 w-full z-50", className)}>
+        <CardContent className="p-4">
+          <div className="text-center text-muted-foreground">
+            <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
+            <p className="text-sm">Start typing to search transactions...</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Card className={cn("absolute top-full mt-2 w-full z-50", className)}>
+        <CardContent className="p-4">
+          <div className="space-y-3">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="animate-pulse flex space-x-3">
+                <div className="rounded-full bg-muted h-10 w-10" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-3 bg-muted rounded w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (transactions.length === 0) {
+    return (
+      <Card className={cn("absolute top-full mt-2 w-full z-50", className)}>
+        <CardContent className="p-4">
+          <div className="text-center text-muted-foreground">
+            <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
+            <p className="text-sm">No transactions found for &quot;{query}&quot;</p>
+            <p className="text-xs mt-1">Try searching for a different term</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card
+      className={cn(
+        "absolute top-full mt-2 w-full z-50 max-h-96 overflow-y-auto",
+        className
+      )}
+    >
+      <CardContent className="p-2">
+        <div className="mb-2 px-2 py-1">
+          <p className="text-xs text-muted-foreground">
+            Found {transactions.length} transaction
+            {transactions.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+
+        <div className="space-y-1">
+          {transactions.map((transaction) => (
+            <Button
+              key={transaction.id}
+              variant="ghost"
+              onClick={() => onTransactionClick?.(transaction)}
+              className="w-full justify-start h-auto p-3 hover:bg-muted/50"
+            >
+              <div className="flex items-center space-x-3 w-full">
+                {/* Transaction Type Icon */}
+                <div
+                  className={cn(
+                    "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
+                    transaction.type === "Credit"
+                      ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400"
+                      : "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400"
+                  )}
+                >
+                  <CreditCard className="h-4 w-4" />
+                </div>
+
+                {/* Transaction Details */}
+                <div className="flex-1 text-left">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium text-sm">
+                      {highlightMatch(transaction.remark, query)}
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={cn(
+                          "font-semibold text-sm",
+                          transaction.type === "Credit"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        )}
+                      >
+                        {transaction.type === "Debit" ? "-" : "+"}$
+                        {transaction.amount}
+                      </span>
+                      <Badge
+                        variant={
+                          transaction.type === "Credit"
+                            ? "default"
+                            : "secondary"
+                        }
+                        className="text-xs"
+                      >
+                        {transaction.type}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 mt-1">
+                    <CalendarDays className="h-3 w-3 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(transaction.date).toLocaleDateString()}
+                    </span>
+                    <span className="text-xs text-muted-foreground">•</span>
+                    <span className="text-xs text-muted-foreground">
+                      {transaction.currency}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Button>
+          ))}
+        </div>
+
+        {/* View All Results */}
+        {transactions.length > 5 && (
+          <div className="border-t mt-2 pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={onClose}
+            >
+              View All Results
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+// Helper function to highlight matching text
+const highlightMatch = (text: string, query: string) => {
+  if (!query.trim()) return text;
+
+  const regex = new RegExp(
+    `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+    "gi"
+  );
+  const parts = text.split(regex);
+
+  return (
+    <span>
+      {parts.map((part, index) =>
+        regex.test(part) ? (
+          <mark
+            key={index}
+            className="bg-yellow-200 dark:bg-yellow-800 text-foreground"
+          >
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </span>
+  );
+};

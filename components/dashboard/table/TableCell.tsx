@@ -26,7 +26,10 @@ interface DateCellProps {
 }
 
 export const DateCell = ({ date }: DateCellProps) => (
-  <BaseCell className="font-mono text-sm" padding="pl-[18px] pr-[9px]">
+  <BaseCell
+    className="font-mono text-sm text-foreground"
+    padding="pl-[18px] pr-[9px]"
+  >
     {formatDate(date)}
   </BaseCell>
 );
@@ -36,7 +39,7 @@ interface RemarkCellProps {
 }
 
 export const RemarkCell = ({ remark }: RemarkCellProps) => (
-  <BaseCell className="font-medium" padding="px-[9px]">
+  <BaseCell className="font-medium text-foreground" padding="px-[9px]">
     {remark}
   </BaseCell>
 );
@@ -65,7 +68,7 @@ interface CurrencyCellProps {
 }
 
 export const CurrencyCell = ({ currency }: CurrencyCellProps) => (
-  <BaseCell className="text-center" padding="px-[9px]">
+  <BaseCell className="text-center text-foreground" padding="px-[9px]">
     {currency}
   </BaseCell>
 );

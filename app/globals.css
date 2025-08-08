@@ -158,12 +158,12 @@
 
 .dark {
   /* Custom dark theme colors */
-  --background: #0a1215;
+  --background: #080f11;
   --foreground: #fcfdfd;
 
   /* Surface colors */
-  --surface: #132024;
-  --surface-muted: #1a272c;
+  --surface: #081113;
+  --surface-muted: #0a1114;
   --card: #132024;
   --card-foreground: #fcfdfd;
   --card-border: #2a3438;

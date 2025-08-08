@@ -26,7 +26,7 @@ const WalletHeader = ({ activeTab, onTabChange }: WalletHeaderProps) => {
   ];
 
   return (
-    <div className="bg-surface">
+    <div>
       {/* Wallet title and actions */}
       <section className="flex items-center justify-between mb-6 gap-2">
         <div className="flex items-center gap-1 xs:gap-2 md:gap-3">

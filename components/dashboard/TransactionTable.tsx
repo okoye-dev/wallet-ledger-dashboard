@@ -15,20 +15,24 @@ import {
   CurrencyCell,
   TypeCell,
 } from "./table/TableCells";
+import { cn } from "@/lib/utils";
 
 interface TransactionTableProps {
   transactions: Transaction[];
   isLoading?: boolean;
   error?: Error | null;
   onAddTransaction?: () => void;
+  selectedTransactionId?: string | null;
 }
 
 const TransactionTableContent = ({
   transactions,
   onAddTransaction,
+  selectedTransactionId,
 }: {
   transactions: Transaction[];
   onAddTransaction?: () => void;
+  selectedTransactionId?: string | null;
 }) => {
   const sanitizedTransactions = sanitizeTransactions(transactions);
 
@@ -55,34 +59,41 @@ const TransactionTableContent = ({
         </TableHeader>
 
         <TableBody>
-          {sortedTransactions.map((transaction, index) => (
-            <TableRow
-              key={transaction.id}
-              className="hover:bg-surface-muted/50 transition-colors border-b-0"
-            >
-              <DateCell
-                date={transaction.date}
-                isLastRow={index === sortedTransactions.length - 1}
-              />
-              <RemarkCell
-                remark={transaction.remark}
-                isLastRow={index === sortedTransactions.length - 1}
-              />
-              <AmountCell
-                amount={transaction.amount}
-                type={transaction.type}
-                isLastRow={index === sortedTransactions.length - 1}
-              />
-              <CurrencyCell
-                currency={transaction.currency}
-                isLastRow={index === sortedTransactions.length - 1}
-              />
-              <TypeCell
-                type={transaction.type}
-                isLastRow={index === sortedTransactions.length - 1}
-              />
-            </TableRow>
-          ))}
+          {sortedTransactions.map((transaction, index) => {
+            const isSelected = selectedTransactionId === transaction.id;
+            return (
+              <TableRow
+                key={transaction.id}
+                className={cn(
+                  "hover:bg-surface-muted/50 transition-colors border-b-0",
+                  isSelected &&
+                    "bg-yellow-50 dark:bg-yellow-900/20 ring-2 ring-yellow-300 dark:ring-yellow-600"
+                )}
+              >
+                <DateCell
+                  date={transaction.date}
+                  isLastRow={index === sortedTransactions.length - 1}
+                />
+                <RemarkCell
+                  remark={transaction.remark}
+                  isLastRow={index === sortedTransactions.length - 1}
+                />
+                <AmountCell
+                  amount={transaction.amount}
+                  type={transaction.type}
+                  isLastRow={index === sortedTransactions.length - 1}
+                />
+                <CurrencyCell
+                  currency={transaction.currency}
+                  isLastRow={index === sortedTransactions.length - 1}
+                />
+                <TypeCell
+                  type={transaction.type}
+                  isLastRow={index === sortedTransactions.length - 1}
+                />
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
@@ -94,6 +105,7 @@ const TransactionTable = ({
   isLoading = false,
   error,
   onAddTransaction,
+  selectedTransactionId,
 }: TransactionTableProps) => {
   if (isLoading) {
     return <TransactionTableSkeleton />;
@@ -113,6 +125,7 @@ const TransactionTable = ({
       <TransactionTableContent
         transactions={transactions}
         onAddTransaction={onAddTransaction}
+        selectedTransactionId={selectedTransactionId}
       />
     </ErrorBoundary>
   );
