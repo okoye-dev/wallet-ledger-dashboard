@@ -75,6 +75,32 @@ export const mockTransactions: Transaction[] = [
   },
 ];
 
+// Empty transactions for testing empty state
+export const emptyTransactions: Transaction[] = [];
+
+// Invalid transactions for testing validation (these will be filtered out)
+export const invalidTransactions = [
+  {
+    id: "invalid1",
+    date: "invalid-date",
+    remark: "Test",
+    amount: "not-a-number",
+    currency: "USD",
+    type: "Credit",
+  },
+  {
+    id: "",
+    date: "2023-10-01",
+    remark: "",
+    amount: -100,
+    currency: "INVALID",
+    type: "InvalidType",
+  },
+  null,
+  undefined,
+  "not-an-object",
+];
+
 export const mockUsers = [
   { name: "Ava Johnson", avatar: "" },
   { name: "Liam Smith", avatar: "" },
@@ -91,4 +117,11 @@ export const mockSummary: DashboardSummary = {
   creditsChange: 3,
   debitsChange: -2,
   transactionChange: 10,
+};
+
+// Invalid summary for testing validation
+export const invalidSummary = {
+  totalBalance: "not-a-number",
+  totalCredits: NaN,
+  missingFields: true,
 };

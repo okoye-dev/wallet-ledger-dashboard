@@ -40,7 +40,7 @@ export const SUMMARY_STYLES = {
   cardBg: "bg-summary-card-bg",
   cardRadius: "rounded-[20px]",
   titleSize: "text-[10px] xs:text-[12px] md:text-[15px] lg:text-[17px]",
-  valueSize: "text-xl xs:text-3xl lg:text-[34px]",
+  valueSize: "text-2xl xs:text-3xl lg:text-[34px]",
   changeSize: "text-sm lg:text-[13px]",
   headerSize: "text-[18px] lg:text-[20px]",
 } as const;

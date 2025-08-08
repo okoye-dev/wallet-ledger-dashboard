@@ -43,8 +43,8 @@ const StatusBadge = ({ status, className, size = "md" }: StatusBadgeProps) => {
       />
       <p
         className={cn(
-          "text-sm text-foreground",
-          size === "sm" && "text-[10px]"
+          "text-xs md:text-sm text-foreground",
+          size === "sm" && "text-[10px] md:text-[12px]"
         )}
       >
         {status}

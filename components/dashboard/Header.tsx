@@ -21,17 +21,10 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
         </Link>
       </section>
 
-      <section className="flex items-center gap-[10px] xs:gap-[14px] md:gap-[28px]">
-        <div className="scale-[0.65] xs:scale-75 md:scale-100">
-          <ThemeToggle />
-        </div>
-
-        <div className="scale-[0.65] xs:scale-75 md:scale-100">
-          <Search />
-        </div>
-        <div className="scale-[0.65] xs:scale-75 md:scale-100">
-          <Windows />
-        </div>
+      <section className="flex items-center gap-[8px] md:gap-[28px] [&>*]:scale-[0.65] [&>*]:xs:scale-75 [&>*]:md:scale-100">
+        <ThemeToggle />
+        <Search />
+        <Windows />
         <Avatar className="h-5 w-5 xs:h-6 xs:w-6 md:h-8 md:w-8">
           <AvatarImage src="/profile.png" />
           <AvatarFallback className="bg-primary text-primary-foreground text-[8px] xs:text-[10px] md:text-sm">

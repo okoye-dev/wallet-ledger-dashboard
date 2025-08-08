@@ -1,14 +1,19 @@
 import { DashboardSummary } from "@/types/dashboard";
 import { useSummaryData } from "@/hooks/useSummaryData";
 import { SummaryCard } from "./summary/SummaryCard";
+import { SummaryCardsLoadingSkeleton } from "./loading/SummaryCardSkeleton";
+import { ErrorBoundary } from "./error/ErrorBoundary";
 import { SUMMARY_STYLES } from "./summary/config";
+import { sanitizeDashboardSummary } from "@/lib/utils/dataValidation";
 
 interface SummaryCardsProps {
   summary: DashboardSummary;
+  isLoading?: boolean;
 }
 
-const SummaryCards = ({ summary }: SummaryCardsProps) => {
-  const { formattedCards } = useSummaryData({ summary });
+const SummaryCardsContent = ({ summary }: { summary: DashboardSummary }) => {
+  const sanitizedSummary = sanitizeDashboardSummary(summary);
+  const { formattedCards } = useSummaryData({ summary: sanitizedSummary });
 
   return (
     <div className="bg-background">
@@ -26,6 +31,18 @@ const SummaryCards = ({ summary }: SummaryCardsProps) => {
         ))}
       </div>
     </div>
+  );
+};
+
+const SummaryCards = ({ summary, isLoading = false }: SummaryCardsProps) => {
+  if (isLoading) {
+    return <SummaryCardsLoadingSkeleton />;
+  }
+
+  return (
+    <ErrorBoundary>
+      <SummaryCardsContent summary={summary} />
+    </ErrorBoundary>
   );
 };
 

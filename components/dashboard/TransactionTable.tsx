@@ -4,6 +4,10 @@ import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table";
 import { Transaction } from "@/types/dashboard";
 import { useTableSort } from "@/hooks/useTableSort";
 import { TableHeaderRow } from "./table/TableHeader";
+import { TransactionTableSkeleton } from "./loading/TransactionTableSkeleton";
+import { EmptyTransactionState } from "./empty/EmptyTransactionState";
+import { ErrorBoundary } from "./error/ErrorBoundary";
+import { sanitizeTransactions } from "@/lib/utils/dataValidation";
 import {
   DateCell,
   RemarkCell,
@@ -14,13 +18,27 @@ import {
 
 interface TransactionTableProps {
   transactions: Transaction[];
+  isLoading?: boolean;
+  onAddTransaction?: () => void;
 }
 
-const TransactionTable = ({ transactions }: TransactionTableProps) => {
+const TransactionTableContent = ({
+  transactions,
+  onAddTransaction,
+}: {
+  transactions: Transaction[];
+  onAddTransaction?: () => void;
+}) => {
+  const sanitizedTransactions = sanitizeTransactions(transactions);
+
   const { sortField, sortDirection, sortedTransactions, handleSort } =
     useTableSort({
-      transactions,
+      transactions: sanitizedTransactions,
     });
+
+  if (sanitizedTransactions.length === 0) {
+    return <EmptyTransactionState onAddTransaction={onAddTransaction} />;
+  }
 
   return (
     <div className="bg-surface overflow-hidden">
@@ -67,6 +85,25 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         </TableBody>
       </Table>
     </div>
+  );
+};
+
+const TransactionTable = ({
+  transactions,
+  isLoading = false,
+  onAddTransaction,
+}: TransactionTableProps) => {
+  if (isLoading) {
+    return <TransactionTableSkeleton />;
+  }
+
+  return (
+    <ErrorBoundary>
+      <TransactionTableContent
+        transactions={transactions}
+        onAddTransaction={onAddTransaction}
+      />
+    </ErrorBoundary>
   );
 };
 

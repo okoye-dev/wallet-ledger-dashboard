@@ -8,6 +8,11 @@ export const TABLE_STYLES = {
     middle: "px-[9px]",
     last: "pr-[18px] pl-[9px]",
   },
+  // Common responsive text size classes
+  textSizes: {
+    header: "text-[10px] xs:text-[11px] md:text-[13px]", // Increased mobile by 2px from [8px] to [10px], xs from [9px] to [11px]
+    cell: "text-[11px] xs:text-[12px] md:text-[15px]", // Increased mobile by 2px from [9px] to [11px], xs from [10px] to [12px]
+  },
 } as const;
 
 // Table configuration

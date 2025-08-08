@@ -52,7 +52,7 @@ const UserProfiles = ({
       </div>
 
       {showNames && (
-        <div className="text-sm text-muted-foreground">
+        <div className="text-[11px] xs:text-sm text-muted-foreground">
           {profiles
             .slice(0, 3)
             .map((p) => p.name.split(" ")[0])
