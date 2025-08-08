@@ -1,7 +1,7 @@
 import { SortField } from "@/types/dashboard";
 
 export const TABLE_STYLES = {
-  headerColor: "text-[#15272d]/[0.62] dark:text-foreground",
+  headerColor: "text-foreground/70",
   cellColor: "text-foreground",
   borderColor: "bg-[#49656e]/20",
   cellPadding: {
