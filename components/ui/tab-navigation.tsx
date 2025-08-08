@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface Tab {
   id: string;
@@ -47,8 +47,6 @@ const TabNavigation = ({
     return maxVisibleTabs.mobile; // mobile
   };
 
-  const [maxVisible, setMaxVisible] = useState(getCurrentMaxTabs());
-
   // Calculate tab width based on screen size and max visible tabs
   const calculateTabWidth = () => {
     if (!containerRef.current) return 0;
@@ -66,12 +64,11 @@ const TabNavigation = ({
   };
 
   // Update container width and recalculate on resize
-  const updateDimensions = () => {
+  const updateDimensions = useCallback(() => {
     if (containerRef.current) {
       setContainerWidth(containerRef.current.offsetWidth);
-      setMaxVisible(getCurrentMaxTabs());
     }
-  };
+  }, []);
 
   // Set up ResizeObserver for smooth resize handling
   useEffect(() => {
@@ -91,7 +88,7 @@ const TabNavigation = ({
         resizeObserverRef.current.disconnect();
       }
     };
-  }, []);
+  }, [updateDimensions]);
 
   // Handle window resize for breakpoint changes
   useEffect(() => {
@@ -101,7 +98,7 @@ const TabNavigation = ({
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [updateDimensions]);
 
   // Track active tab element for indicator positioning
   useEffect(() => {
