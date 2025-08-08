@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Transaction, SortDirection, SortField } from "@/types/dashboard";
+import { DownArrow } from "../icons/DownArrow";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -92,73 +93,84 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         <Table>
           <TableHeader className="bg-surface-muted">
             <TableRow className="border-b border-card-border">
-              <TableHead>
+              <TableHead className="py-4 pl-[18px] pr-[9px]">
                 <Button
                   variant="ghost"
                   onClick={() => handleSort("date")}
-                  className="h-auto p-0 font-semibold text-muted-foreground hover:text-foreground"
+                  className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
-                  <div className="flex items-center gap-2">
-                    Date
+                  <span>Date</span>
+                  <div className="flex items-center gap-1">
                     <SortIcon field="date" />
+                    <DownArrow size="sm" />
                   </div>
                 </Button>
               </TableHead>
-              <TableHead>
+              <TableHead className="py-4 px-[9px]">
                 <Button
                   variant="ghost"
                   onClick={() => handleSort("remark")}
-                  className="h-auto p-0 font-semibold text-muted-foreground hover:text-foreground"
+                  className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
-                  <div className="flex items-center gap-2">
-                    Remark
+                  <span>Remark</span>
+                  <div className="flex items-center gap-1">
                     <SortIcon field="remark" />
+                    <DownArrow size="sm" />
                   </div>
                 </Button>
               </TableHead>
-              <TableHead className="text-right">
+              <TableHead className="py-4 px-[9px] text-right">
                 <Button
                   variant="ghost"
                   onClick={() => handleSort("amount")}
-                  className="h-auto p-0 font-semibold text-muted-foreground hover:text-foreground"
+                  className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
-                  <div className="flex items-center gap-2 justify-end">
-                    Amount
+                  <span>Amount</span>
+                  <div className="flex items-center gap-1">
                     <SortIcon field="amount" />
+                    <DownArrow size="sm" />
                   </div>
                 </Button>
               </TableHead>
-              <TableHead className="text-center">Currency</TableHead>
-              <TableHead>
+              <TableHead className="py-4 px-[9px] text-center">
+                <div className="flex items-center justify-between w-full">
+                  <span className="font-semibold text-[#15272d]/25">
+                    Currency
+                  </span>
+                  <DownArrow size="sm" />
+                </div>
+              </TableHead>
+              <TableHead className="py-4 px-[9px]">
                 <Button
                   variant="ghost"
                   onClick={() => handleSort("type")}
-                  className="h-auto p-0 font-semibold text-muted-foreground hover:text-foreground"
+                  className="h-auto p-0 font-semibold text-[#15272d]/25 hover:text-foreground flex items-center justify-between w-full"
                 >
-                  <div className="flex items-center gap-2">
-                    Type
+                  <span>Type</span>
+                  <div className="flex items-center gap-1">
                     <SortIcon field="type" />
+                    <DownArrow size="sm" />
                   </div>
                 </Button>
               </TableHead>
-              <TableHead className="w-12"></TableHead>
+              <TableHead className="w-12 py-4 pr-[18px] pl-[9px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {sortedTransactions.map((transaction) => (
               <TableRow
                 key={transaction.id}
-                className="border-b border-card-border/50 hover:bg-surface-muted/50 transition-colors"
+                className="border-b border-[#49656e]/20 hover:bg-surface-muted/50 transition-colors"
               >
-                <TableCell className="font-mono text-sm">
+                <TableCell className="font-mono text-sm py-4 pl-[18px] pr-[9px]">
                   {formatDate(transaction.date)}
                 </TableCell>
-                <TableCell className="font-medium">
+                <TableCell className="font-medium py-4 px-[9px]">
                   {transaction.remark}
                 </TableCell>
                 <TableCell
                   className={cn(
-                    "text-right font-semibold",
+                    "text-right font-semibold py-4 px-[9px]",
                     transaction.type === "Credit"
                       ? "text-success"
                       : "text-danger"
@@ -167,12 +179,12 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   {transaction.type === "Debit" ? "-" : ""}
                   {formatAmount(transaction.amount, transaction.currency)}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center py-4 px-[9px]">
                   <Badge variant="outline" className="text-xs font-mono">
                     {transaction.currency}
                   </Badge>
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-4 px-[9px]">
                   <div className="flex items-center gap-2">
                     <div
                       className={cn(
@@ -187,7 +199,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                     </span>
                   </div>
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-4 pr-[18px] pl-[9px]">
                   <Button variant="ghost" size="icon" className="h-6 w-6">
                     <MoreHorizontal className="h-4 w-4" />
                   </Button>

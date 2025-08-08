@@ -31,20 +31,22 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setMounted(true);
     // Check for saved theme or default to light
     const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
+    if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
       setTheme(savedTheme);
     } else {
       // Check system preference
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      setTheme(systemTheme);
+      if (typeof window !== "undefined") {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light";
+        setTheme(systemTheme);
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || typeof window === "undefined") return;
 
     const root = document.documentElement;
     root.classList.remove("light", "dark");
@@ -57,8 +59,13 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
+  // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
-    return <>{children}</>;
+    return (
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <div className="opacity-0">{children}</div>
+      </ThemeContext.Provider>
+    );
   }
 
   return (

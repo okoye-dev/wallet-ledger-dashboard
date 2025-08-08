@@ -29,27 +29,20 @@ const SummaryCard = ({
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </CardHeader>
+
       <CardContent>
         <div className="flex items-center justify-between">
           <div>
             <div className="text-2xl font-bold text-foreground">{value}</div>
-            <div className="flex items-center gap-1 mt-1">
-              <TrendIcon
-                className={cn(
-                  "h-3 w-3",
-                  isPositive ? "text-success" : "text-danger"
-                )}
-              />
-              <span
-                className={cn(
-                  "text-xs font-medium",
-                  isPositive ? "text-success" : "text-danger"
-                )}
-              >
-                {isPositive ? "+" : ""}
-                {change}%
-              </span>
-            </div>
+            <span
+              className={cn(
+                "text-xs font-medium",
+                isPositive ? "text-success" : "text-danger"
+              )}
+            >
+              {isPositive ? "+" : ""}
+              {change}%
+            </span>
           </div>
         </div>
       </CardContent>

@@ -1,29 +1,19 @@
-import {
-  Home,
-  CreditCard,
-  BarChart3,
-  Settings,
-  FileText,
-  Users,
-  LucideIcon,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 interface SidebarItem {
-  icon: LucideIcon;
+  icon?: ReactNode;
   label: string;
   active?: boolean;
   href?: string;
 }
 
 const sidebarItems: SidebarItem[] = [
-  { icon: Home, label: "Dashboard", active: true },
-  { icon: CreditCard, label: "Transactions" },
-  { icon: FileText, label: "Reports" },
-  { icon: Users, label: "Team" },
-  { icon: BarChart3, label: "Analytics" },
-  { icon: Settings, label: "Settings" },
+  { label: "Dashboard", active: true },
+  { label: "Transactions" },
+  { label: "Reports" },
+  { label: "Settings" },
 ];
 
 interface SidebarProps {
@@ -48,12 +38,12 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
       {/* Sidebar */}
       <aside
         className={cn(
-          // Base styles
-          "fixed top-0 left-0 z-50 h-full w-64 bg-surface border-r border-card-border shadow-lg",
+          // Base styles - positioned below header
+          "fixed top-header left-0 z-40 h-[calc(100vh-var(--header-height))] w-64 bg-surface border-r border-card-border shadow-lg",
           // Mobile: slide in/out animation
           "transform transition-transform duration-300 ease-in-out",
           // Desktop: always visible, static positioning
-          "lg:static lg:shadow-none lg:transform-none",
+          "lg:static lg:shadow-none lg:transform-none lg:h-full",
           // Mobile: hidden by default, slide in when open
           isOpen ? "translate-x-0" : "-translate-x-full",
           // Desktop: always visible
@@ -61,35 +51,20 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
         )}
       >
         <div className="flex flex-col h-full">
-          {/* Logo area - matching header height */}
-          <div className="h-header flex items-center px-6 border-b border-card-border">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <div className="w-5 h-5 bg-primary-foreground rounded-sm" />
-              </div>
-              <span className="font-semibold text-lg text-foreground">
-                FinTrack
-              </span>
-            </div>
-          </div>
-
-          {/* Navigation */}
           <nav className="flex-1 px-4 py-6">
             <div className="space-y-2">
               {sidebarItems.map((item) => {
-                const Icon = item.icon;
                 return (
                   <Button
                     key={item.label}
                     variant={item.active ? "secondary" : "ghost"}
                     className={cn(
-                      "w-full justify-start gap-3 h-10 transition-colors",
+                      "w-full justify-start gap-3 h-9 transition-colors rounded-2xl",
                       item.active
                         ? "bg-button-green/15 text-button-green hover:bg-button-green/20"
                         : "text-text-green hover:bg-hover-text-green/10 hover:text-hover-text-green"
                     )}
                   >
-                    <Icon className="h-4 w-4" />
                     {item.label}
                   </Button>
                 );
@@ -98,12 +73,12 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
           </nav>
 
           {/* User section at bottom */}
-          <div className="p-4 border-t border-card-border">
-            <div className="text-xs text-muted-foreground mb-2">John Doe</div>
-            <div className="text-xs text-muted-foreground">
+          <section className="p-4 border-t border-card-border">
+            <h3 className="text-xs text-muted-foreground mb-2">John Doe</h3>
+            <p className="text-xs text-muted-foreground">
               john.doe@fintrack.com
-            </div>
-          </div>
+            </p>
+          </section>
         </div>
       </aside>
     </>
